@@ -11,4 +11,8 @@
     <ProjectReference Include="..\BeautySalon.Entities\BeautySalon.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Treatments\Exceptions\" />
+  </ItemGroup>
+
 </Project>
