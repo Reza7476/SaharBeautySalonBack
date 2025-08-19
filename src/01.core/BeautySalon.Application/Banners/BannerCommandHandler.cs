@@ -1,0 +1,80 @@
+﻿using BeautySalon.Application.Banners.Contracts;
+using BeautySalon.Application.Banners.Contracts.Dtos;
+using BeautySalon.Common.Dtos;
+using BeautySalon.Common.Interfaces;
+using BeautySalon.Entities.Banners;
+using BeautySalon.Services.Banners.Contracts;
+using BeautySalon.Services.Banners.Contracts.Dto;
+using BeautySalon.Services.Banners.Exceptions;
+
+namespace BeautySalon.Application.Banners;
+public class BannerCommandHandler : BannerHandler
+{
+    private readonly IBannerService _bannerService;
+    private readonly IImageService _imageService;
+
+    public BannerCommandHandler(
+        IBannerService bannerService,
+        IImageService imageService)
+    {
+        _bannerService = bannerService;
+        _imageService = imageService;
+    }
+
+    public async Task<long> Add(AddBannerHandlerDto dto)
+    {
+        MediaDto media = await _imageService.SaveMedia(new AddMediaDto
+        {
+            Media = dto.Image
+        });
+
+        var bannerId = await _bannerService.Add(new AddBannerDto
+        {
+            Title = dto.Title,
+            Extension = media.Extension,
+            ImageName = media.ImageName,
+            UniqueName = media.UniqueName,
+            FilePath = media.FilePath
+        });
+
+        return bannerId;
+    }
+
+    public async Task UpdateBanner(long id, UpdateBannerHandlerDto dto)
+    {
+        var banner = await _bannerService.GetById(id);
+        StopIfBannerNotFound(banner);
+
+        try
+        {
+            await _imageService.DeleteMediaByName(banner!.FilePath);
+            MediaDto media = await _imageService.SaveMedia(new AddMediaDto()
+            {
+                Media = dto.Image
+            });
+            await _bannerService.Update(id, new UpdateBannerDto()
+            {
+                Extension = media.Extension,
+                FilePath = media.FilePath,
+                ImageName = media.ImageName,
+                Title = dto.Title,
+                UniqueName = media.UniqueName
+            });
+        }
+        catch (Exception ex)
+        {
+
+            throw new Exception(ex.Message);
+        }
+
+
+    }
+
+    private static void StopIfBannerNotFound(Banner? banner)
+    {
+        if (banner == null)
+        {
+            throw new BannerNotFoundException();
+        }
+    }
+}
