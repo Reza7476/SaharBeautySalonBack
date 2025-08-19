@@ -1,6 +1,6 @@
 ﻿namespace BeautySalon.Common.Interfaces;
 public interface IPagination
 {
-    int Offset { get; init; }
-    int limit { get; init; }
+    int? Offset { get; set; }
+    int? Limit { get; set; }
 }
