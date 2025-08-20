@@ -34,4 +34,11 @@ public class TreatmentsController : ControllerBase
     {
         return await _service.GetAll(pagination);
     }
+
+
+    [HttpGet("{id}")]
+    public async Task<GetTreatmentDetailsDto?> GetDetails(long id)
+    {
+        return await _service.GetDetails(id);
+    }
 }

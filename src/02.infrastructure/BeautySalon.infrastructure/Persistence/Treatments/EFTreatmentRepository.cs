@@ -23,13 +23,13 @@ public class EFTreatmentRepository : ITreatmentRepository
 
     public async Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination)
     {
-        var query= _treatments
+        var query = _treatments
             .Include(_ => _.Images)
             .Select(_ => new GetAllTreatmentsDto()
             {
                 Description = _.Description,
                 Title = _.Title,
-                Id=_.Id,
+                Id = _.Id,
                 Media = _.Images.Select(media => new MediaDto()
                 {
                     Extension = media.Extension,
@@ -40,5 +40,24 @@ public class EFTreatmentRepository : ITreatmentRepository
             }).AsQueryable();
 
         return await query.Paginate(pagination ?? new Pagination());
+    }
+
+    public async Task<GetTreatmentDetailsDto?> GetDetails(long id)
+    {
+        return await _treatments
+            .Where(_ => _.Id == id)
+            .Include(_ => _.Images)
+            .Select(_ => new GetTreatmentDetailsDto()
+            {
+                Description = _.Description,
+                Title = _.Title,
+                Media = _.Images.Select(media => new MediaDto()
+                {
+                    Extension = media.Extension,
+                    FilePath = media.URL,
+                    UniqueName = media.ImageUniqueName,
+                    ImageName = media.ImageName,
+                }).FirstOrDefault()
+            }).FirstOrDefaultAsync();
     }
 }

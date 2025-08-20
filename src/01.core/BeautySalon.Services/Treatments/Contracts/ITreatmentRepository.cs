@@ -8,4 +8,5 @@ public interface ITreatmentRepository : IRepository
     Task Add(Treatment treatment);
 
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination);
+    Task<GetTreatmentDetailsDto?> GetDetails(long id);
 }

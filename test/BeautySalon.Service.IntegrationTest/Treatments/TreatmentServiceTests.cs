@@ -46,4 +46,24 @@ public class TreatmentServiceTests:BusinessIntegrationTest
         expected.Elements.Last().Media.Extension.Should().Be(treat2.Images.First().Extension);
     }
 
+    [Fact]
+    public async Task GetDetails_should_return_treatment_properly()
+    {
+        var treat1 = new TreatmentBuilder()
+            .WithTitle("title1")
+            .WithDescription("description1")
+            .WithImage()
+            .Build();
+        Save(treat1);
+
+        var expected = await _sut.GetDetails(treat1.Id);
+
+        expected!.Title.Should().Be(treat1.Title);
+        expected.Description.Should().Be(treat1.Description);
+        expected.Media!.UniqueName.Should().Be(treat1.Images.First().ImageUniqueName);
+        expected.Media.ImageName.Should().Be(treat1.Images.First().ImageName);
+        expected.Media.Extension.Should().Be(treat1.Images.First().Extension);
+        expected.Media.FilePath.Should().Be(treat1.Images.First().URL);
+    }
+
 }
