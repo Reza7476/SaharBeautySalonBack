@@ -40,7 +40,7 @@ public class StorageApp : IImageService
             ImageName = Path.GetFileNameWithoutExtension(dto.Media.FileName),
             UniqueName = uniqueName,
             Extension = extension,
-            FilePath = URL
+            URL = URL
         };
     }
 

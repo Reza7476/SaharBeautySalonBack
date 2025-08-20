@@ -13,9 +13,9 @@ public static class DataMigration
         var connectionString = settings.ConnectionString;
 
         EnsureDatabaseExist(connectionString);
-       var runner = CreateRunner(connectionString);
+        var runner = CreateRunner(connectionString);
         runner.MigrateUp();
-       // runner.MigrateDown(0);
+        //runner.MigrateDown(0);
     }
 
     private static void EnsureDatabaseExist(string connectionString)

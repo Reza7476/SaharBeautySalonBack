@@ -5,6 +5,7 @@ using BeautySalon.Test.Tool.Infrastructure.Integration;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace BeautySalon.Service.UnitTest.Treatments;
 public class TreatmentServiceTests:BusinessIntegrationTest

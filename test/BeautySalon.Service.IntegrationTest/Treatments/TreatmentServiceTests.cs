@@ -2,6 +2,7 @@
 using BeautySalon.Test.Tool.Entities.Treatments;
 using BeautySalon.Test.Tool.Infrastructure.Integration;
 using FluentAssertions;
+using Xunit;
 
 namespace BeautySalon.Service.IntegrationTest.Treatments;
 public class TreatmentServiceTests:BusinessIntegrationTest
@@ -36,13 +37,13 @@ public class TreatmentServiceTests:BusinessIntegrationTest
         expected.Elements.First().Description.Should().Be(treat1.Description);
         expected.Elements.First().Media.ImageName.Should().Be(treat1.Images.First().ImageName);
         expected.Elements.First().Media.UniqueName.Should().Be(treat1.Images.First().ImageUniqueName);
-        expected.Elements.First().Media.FilePath.Should().Be(treat1.Images.First().URL);
+        expected.Elements.First().Media.URL.Should().Be(treat1.Images.First().URL);
         expected.Elements.First().Media.Extension.Should().Be(treat1.Images.First().Extension);
         expected.Elements.Last().Title.Should().Be(treat2.Title);
         expected.Elements.Last().Description.Should().Be(treat2.Description);
         expected.Elements.Last().Media.ImageName.Should().Be(treat2.Images.First().ImageName);
         expected.Elements.Last().Media.UniqueName.Should().Be(treat2.Images.First().ImageUniqueName);
-        expected.Elements.Last().Media.FilePath.Should().Be(treat2.Images.First().URL);
+        expected.Elements.Last().Media.URL.Should().Be(treat2.Images.First().URL);
         expected.Elements.Last().Media.Extension.Should().Be(treat2.Images.First().Extension);
     }
 
@@ -63,7 +64,7 @@ public class TreatmentServiceTests:BusinessIntegrationTest
         expected.Media!.UniqueName.Should().Be(treat1.Images.First().ImageUniqueName);
         expected.Media.ImageName.Should().Be(treat1.Images.First().ImageName);
         expected.Media.Extension.Should().Be(treat1.Images.First().Extension);
-        expected.Media.FilePath.Should().Be(treat1.Images.First().URL);
+        expected.Media.URL.Should().Be(treat1.Images.First().URL);
     }
 
 }

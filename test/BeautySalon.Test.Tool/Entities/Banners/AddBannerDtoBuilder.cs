@@ -10,7 +10,7 @@ public class AddBannerDtoBuilder
         _dto = new AddBannerDto()
         {
             Extension = ".jpg",
-            FilePath = "dummy-file-path",
+            URL = "dummy-file-path",
             ImageName = "dummy-image-name",
             Title = "title",
             UniqueName = "dummy-uniqueName"
@@ -25,7 +25,7 @@ public class AddBannerDtoBuilder
 
     public AddBannerDtoBuilder WithFilePath(string filePath)
     {
-        _dto.FilePath = filePath;
+        _dto.URL = filePath;
         return this;
 
     }

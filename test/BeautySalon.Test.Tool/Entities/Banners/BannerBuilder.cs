@@ -13,7 +13,7 @@ public class BannerBuilder
             Extension = ".jpg",
             ImageName = "dummy-name",
             ImageUniqueName = "dummy-uniqueName",
-            FilePath = "file path",
+            URL = "file path",
             Title = "title"
         };
     }
@@ -41,7 +41,7 @@ public class BannerBuilder
     }
     public BannerBuilder WithFilePath(string filePath)
     {
-        _banner.FilePath = filePath;
+        _banner.URL = filePath;
         return this;
     }
     public BannerBuilder WithTitle(string title)

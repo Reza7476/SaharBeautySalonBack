@@ -11,7 +11,7 @@ public class UpdateBannerDtoBuilder
         {
             Title = "update-title",
             Extension="update-extension",
-            FilePath="update-pathFile",
+            URL="update-pathFile",
             ImageName="update-imageName",
             UniqueName="update-uniqueName",
         };
@@ -31,7 +31,7 @@ public class UpdateBannerDtoBuilder
 
     public UpdateBannerDtoBuilder WithFilePath(string filePath)
     {
-        _dto.FilePath=filePath;
+        _dto.URL=filePath;
         return  this;
     }
 

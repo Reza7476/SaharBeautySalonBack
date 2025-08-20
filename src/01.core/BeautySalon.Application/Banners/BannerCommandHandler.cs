@@ -34,7 +34,7 @@ public class BannerCommandHandler : BannerHandler
             Extension = media.Extension,
             ImageName = media.ImageName,
             UniqueName = media.UniqueName,
-            FilePath = media.FilePath
+            URL = media.URL
         });
 
         return bannerId;
@@ -47,7 +47,7 @@ public class BannerCommandHandler : BannerHandler
 
         try
         {
-            await _imageService.DeleteMediaByName(banner!.FilePath);
+            await _imageService.DeleteMediaByName(banner!.URL);
             MediaDto media = await _imageService.SaveMedia(new AddMediaDto()
             {
                 Media = dto.Image
@@ -55,7 +55,7 @@ public class BannerCommandHandler : BannerHandler
             await _bannerService.Update(id, new UpdateBannerDto()
             {
                 Extension = media.Extension,
-                FilePath = media.FilePath,
+                URL = media.URL,
                 ImageName = media.ImageName,
                 Title = dto.Title,
                 UniqueName = media.UniqueName

@@ -33,7 +33,7 @@ public class EFTreatmentRepository : ITreatmentRepository
                 Media = _.Images.Select(media => new MediaDto()
                 {
                     Extension = media.Extension,
-                    FilePath = media.URL,
+                    URL = media.URL,
                     ImageName = media.ImageName,
                     UniqueName = media.ImageUniqueName
                 }).First()
@@ -54,7 +54,7 @@ public class EFTreatmentRepository : ITreatmentRepository
                 Media = _.Images.Select(media => new MediaDto()
                 {
                     Extension = media.Extension,
-                    FilePath = media.URL,
+                    URL = media.URL,
                     UniqueName = media.ImageUniqueName,
                     ImageName = media.ImageName,
                 }).FirstOrDefault()

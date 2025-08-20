@@ -19,7 +19,7 @@ public class BannerEntityMap : IEntityTypeConfiguration<Banner>
 
         _.Property(_ => _.ImageName).IsRequired();
         
-        _.Property(_ => _.FilePath).IsRequired();
+        _.Property(_ => _.URL).IsRequired();
 
     }
 }

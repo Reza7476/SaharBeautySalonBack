@@ -1,0 +1,43 @@
+﻿using BeautySalon.Application.WhyUsSections.Contracts;
+using BeautySalon.Application.WhyUsSections.Contracts.Dto;
+using BeautySalon.Services.WhyUsSections.Contracts.Dto;
+using BeautySalon.Services.WhyUsSections.Contracts;
+using BeautySalon.Common.Interfaces;
+using BeautySalon.Common.Dtos;
+
+namespace BeautySalon.Application.WhyUsSections;
+public class WhyUsCommandHandler : IWhyUsSectionHandler
+{
+    private readonly IImageService _mediaService;
+    private readonly IWhyUsSectionService _service;
+
+    public WhyUsCommandHandler(
+        IImageService mediaService,
+        IWhyUsSectionService service)
+    {
+        _mediaService = mediaService;
+        _service = service;
+    }
+
+    public async Task<long> Add(AddWhyUsSectionHandlerDto dto)
+    {
+        var media = await _mediaService.SaveMedia(new AddMediaDto()
+        {
+            Media = dto.Image
+        });
+
+        var whyUsSectionId = await _service.Add(new AddWhyUsSectionDto()
+        {
+            Title = dto.Title,
+            Media = new MediaDto()
+            {
+                Extension = media.Extension,
+                URL = media.URL,
+                ImageName = media.ImageName,
+                UniqueName = media.UniqueName
+            },
+        });
+
+        return whyUsSectionId;
+    }
+}
