@@ -4,6 +4,7 @@ using BeautySalon.Services.Banners.Exceptions;
 using BeautySalon.Test.Tool.Entities.Banners;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
+using Xunit;
 
 namespace BeautySalon.Service.UnitTest.Banners;
 public class BannerServiceTests : BusinessUnitTest
@@ -28,7 +29,7 @@ public class BannerServiceTests : BusinessUnitTest
         await _sut.Add(dto);
 
         var expected = ReadContext.Set<Banner>().First();
-        expected.FilePath.Should().Be(dto.FilePath);
+        expected.URL.Should().Be(dto.URL);
         expected.Extension.Should().Be(dto.Extension);
         expected.ImageName.Should().Be(dto.ImageName);
         expected.ImageUniqueName.Should().Be(dto.UniqueName);
@@ -62,7 +63,7 @@ public class BannerServiceTests : BusinessUnitTest
         expected.Extension.Should().Be(dto.Extension);
         expected.ImageName.Should().Be(dto.ImageName);
         expected.ImageUniqueName.Should().Be(dto.UniqueName);
-        expected.FilePath.Should().Be(dto.FilePath);
+        expected.URL.Should().Be(dto.URL);
     }
 
     [Theory]

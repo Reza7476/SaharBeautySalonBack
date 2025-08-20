@@ -33,7 +33,7 @@ public class TreatmentCommandHandler : TreatmentHandler
             Title=dto.Title,
             ImageName=media.ImageName,
             ImageUniqueName=media.UniqueName,
-            URL =media.FilePath,
+            URL =media.URL,
             Extension=media.Extension
         });
 

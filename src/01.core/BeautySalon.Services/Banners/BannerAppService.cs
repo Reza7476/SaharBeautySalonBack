@@ -26,7 +26,7 @@ public class BannerAppService : IBannerService
             ImageName = dto.ImageName,
             ImageUniqueName = dto.UniqueName,
             Title = dto.Title,
-            FilePath = dto.FilePath,
+            URL = dto.URL,
         };
 
         await _repository.Add(newBanner);
@@ -49,7 +49,7 @@ public class BannerAppService : IBannerService
         banner!.Title = dto.Title;
         banner.Extension = dto.Extension;
         banner.ImageName = dto.ImageName;
-        banner.FilePath = dto.FilePath;
+        banner.URL = dto.URL;
         banner.ImageUniqueName = dto.UniqueName;
 
         await _unitOfWork.Complete();

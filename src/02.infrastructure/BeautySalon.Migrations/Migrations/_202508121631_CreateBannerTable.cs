@@ -14,7 +14,7 @@ public class _202508121631_CreateBannerTable : Migration
               .WithColumn("ImageName").AsString().NotNullable()
               .WithColumn("ImageUniqueName").AsString().NotNullable()
               .WithColumn("Extension").AsString().NotNullable()
-              .WithColumn("FilePath").AsString().NotNullable()
+              .WithColumn("URL").AsString().NotNullable()
               .WithColumn("CreateDate").AsDateTime2();
     }
 

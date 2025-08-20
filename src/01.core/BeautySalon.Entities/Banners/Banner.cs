@@ -6,6 +6,6 @@ public class Banner
     public required string ImageName { get; set; }
     public required string ImageUniqueName { get; set; }
     public required string Extension { get; set; }
-    public required string FilePath { get; set; }
+    public required string URL { get; set; }
     public required DateTime CreateDate { get; set; }
 }

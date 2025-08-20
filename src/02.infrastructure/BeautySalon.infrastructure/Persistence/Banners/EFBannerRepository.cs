@@ -28,7 +28,7 @@ public class EFBannerRepository : IBannerRepository
             Id = _.Id,
             Title = _.Title,
             CreateDate = _.CreateDate,
-            FilePath = _.FilePath,
+            URL = _.URL,
             ImageName = _.ImageName,
             ImageUniqueName = _.ImageUniqueName
         }).FirstOrDefaultAsync();

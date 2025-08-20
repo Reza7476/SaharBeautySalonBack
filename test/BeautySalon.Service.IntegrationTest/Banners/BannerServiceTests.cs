@@ -2,6 +2,7 @@
 using BeautySalon.Test.Tool.Entities.Banners;
 using BeautySalon.Test.Tool.Infrastructure.Integration;
 using FluentAssertions;
+using Xunit;
 
 namespace BeautySalon.Service.IntegrationTest.Banners;
 public class BannerServiceTests : BusinessIntegrationTest
@@ -28,7 +29,7 @@ public class BannerServiceTests : BusinessIntegrationTest
 
         var expected = await _sut.Get();
 
-        expected!.FilePath.Should().Be(banner.FilePath);
+        expected!.URL.Should().Be(banner.URL);
         expected.Extension.Should().Be(banner.Extension);
         expected.Title.Should().Be(banner.Title);
         expected.CreateDate.Should().Be(banner.CreateDate);
@@ -51,7 +52,7 @@ public class BannerServiceTests : BusinessIntegrationTest
 
         var expected = await _sut.GetById(banner.Id);
 
-        expected!.FilePath.Should().Be(banner.FilePath);
+        expected!.URL.Should().Be(banner.URL);
         expected.Extension.Should().Be(banner.Extension);
         expected.Title.Should().Be(banner.Title);
         expected.CreateDate.Should().Be(banner.CreateDate);
