@@ -7,4 +7,5 @@ public interface ITreatmentService : IService
     Task<long> Add(AddTreatmentDto dto);
 
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination=null);
+    Task<GetTreatmentDetailsDto?> GetDetails(long id);
 }

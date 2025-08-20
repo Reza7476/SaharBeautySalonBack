@@ -47,4 +47,9 @@ public class TreatmentAppService : ITreatmentService
     {
         return await _repository.GetAll(pagination);
     }
+
+    public async Task<GetTreatmentDetailsDto?> GetDetails(long id)
+    {
+        return await _repository.GetDetails(id);
+    }
 }
