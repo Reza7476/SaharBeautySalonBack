@@ -1,14 +1,13 @@
 ﻿using BeautySalon.Entities.Treatments;
 using BeautySalon.Services.Treatments.Contracts;
 using BeautySalon.Test.Tool.Entities.Treatments;
-using BeautySalon.Test.Tool.Infrastructure.Integration;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace BeautySalon.Service.UnitTest.Treatments;
-public class TreatmentServiceTests:BusinessIntegrationTest
+public class TreatmentServiceTests : BusinessUnitTest
 {
 
     private readonly ITreatmentService _sut;
@@ -20,13 +19,13 @@ public class TreatmentServiceTests:BusinessIntegrationTest
     [Fact]
     public async Task Add_should_add_treatment_properly()
     {
-        var dto=new AddTreatmentDtoBuilder ()
+        var dto = new AddTreatmentDtoBuilder()
             .WithURL("url")
             .WithTitle("title")
             .WithDescription("description")
             .WithImageName("imageName")
             .WithImageUniqueName("unique")
-            .Build ();
+            .Build();
 
         await _sut.Add(dto);
 

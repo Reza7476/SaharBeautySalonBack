@@ -62,4 +62,64 @@ public class WhyUsSectionTests : BusinessUnitTest
 
         await expected.Should().ThrowExactlyAsync<WhyUsSectionNotFoundException>();
     }
+
+    [Fact]
+    public async Task UpdateQuestion_should_update_question_properly()
+    {
+        var section = new WhyUsSectionBuilder()
+            .Build();
+        Save(section);
+        var question = new WhyUsQuestionBuilder()
+            .WithAuestion("question")
+            .WithAnswer("answer")
+            .WithSectionId(section.Id)
+            .Build();
+        Save(question);
+        var dto = new UpdateWhyUsQuestionDtoBuilder()
+            .WithQuestion("dummy")
+            .WithAnswer("dummy")
+            .Build();
+
+        await _sut.UpdateQuestion(question.Id, dto);
+
+        var expected = ReadContext.Set<Why_Us_Question>().First();
+        expected.Question.Should().Be(dto.Question);
+        expected.Answer.Should().Be(dto.Answer);
+    }
+
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task UpdateQuestion_should_throw_exception_when_why_us_question_not_found(long questionId)
+    {
+        var dto = new UpdateWhyUsQuestionDtoBuilder()
+            .Build();
+
+        Func<Task> expected = async () => await _sut.UpdateQuestion(questionId, dto);
+
+        await expected.Should().ThrowExactlyAsync<WhyUsQuestionNotFoundException>();
+    }
+
+    [Fact]
+    public async Task UpdateWgyUsSection_should_update_section_properly()
+    {
+        var section = new WhyUsSectionBuilder()
+            .WithTitle("title")
+            .WithMedia()
+            .Build();
+        Save(section);
+        var dto = new UpdateWhyUsSectionDtoBuilder()
+            .WithTitle("title")
+            .WithMedia()
+            .Build();
+
+        await _sut.UpdateWhyUsSection(section.Id, dto);
+
+        var expected=ReadContext.Set<Why_Us_Section>().First();
+        expected.Title.Should().Be(dto.Title);
+        expected.Image.Extension.Should().Be(dto.Media.Extension);
+        expected.Image.ImageName.Should().Be(dto.Media.ImageName);
+        expected.Image.UniqueName.Should().Be(dto.Media.UniqueName);
+        expected.Image.URL.Should().Be(dto.Media.URL);
+    }
 }

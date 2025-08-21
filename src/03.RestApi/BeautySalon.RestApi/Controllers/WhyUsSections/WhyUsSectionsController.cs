@@ -21,7 +21,6 @@ public class WhyUsSectionsController : ControllerBase
         _service = service;
     }
 
-
     [HttpPost]
     public async Task<long> Add([FromForm] AddWhyUsSectionHandlerDto dto)
     {
@@ -29,8 +28,38 @@ public class WhyUsSectionsController : ControllerBase
     }
 
     [HttpPatch("{sectionId}/questions")]
-    public async Task AddQuestions([FromQuery]long sectionId, [FromBody]AddWhyUsQuestionDto dto)
+    public async Task AddQuestions(
+        [FromRoute] long sectionId,
+        [FromBody] AddWhyUsQuestionDto dto)
     {
         await _service.AddQuestions(dto, sectionId);
+    }
+
+    [HttpGet("{sectionId}/questions")]
+    public async Task<List<GetWhyUsQuestionsDto>>
+        GetQuestions([FromRoute] long sectionId)
+    {
+        return await _service.GetQuestionsBySectionId(sectionId);
+    }
+
+    [HttpGet]
+    public async Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection()
+    {
+        return await _service.GetAllWhyUsSection();
+    }
+
+    [HttpPut("{questionId}/question")]
+    public async Task UpdateQuestion(
+        [FromRoute] long questionId,
+        [FromBody]UpdateWhyUsQuestionDto dto)
+    {
+        await _service.UpdateQuestion(questionId, dto);
+    }
+
+
+    [HttpPut("{id}")]
+    public async Task UpdateWhyUsSection([FromRoute] long id, [FromForm]UpdateWhyUsSectionHandlerDto dto)
+    {
+        await _handler.UpdateWhyUsSection(id, dto);
     }
 }
