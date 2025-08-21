@@ -1,4 +1,5 @@
 ﻿using BeautySalon.Common.Interfaces;
+using BeautySalon.Entities.WhyUsSections;
 using BeautySalon.Services.WhyUsSections.Contracts.Dto;
 
 namespace BeautySalon.Services.WhyUsSections.Contracts;
@@ -6,4 +7,9 @@ public interface IWhyUsSectionService : IService
 {
     Task<long> Add(AddWhyUsSectionDto dto);
     Task AddQuestions(AddWhyUsQuestionDto dto, long sectionId);
+    Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection();
+    Task<Why_Us_Section?> GetById(long id);
+    Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId);
+    Task UpdateQuestion(long questionId, UpdateWhyUsQuestionDto dto);
+    Task UpdateWhyUsSection(long id, UpdateWhyUsSectionDto dto);
 }

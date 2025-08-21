@@ -92,7 +92,7 @@ public class StorageApp : IImageService
         }
     }
 
-    public async Task DeleteMediaByName(string url)
+    public async Task DeleteMediaByURL(string url)
     {
         var decodedPath = Uri.UnescapeDataString(url);
 

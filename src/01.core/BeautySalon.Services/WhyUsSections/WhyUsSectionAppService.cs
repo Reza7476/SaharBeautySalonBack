@@ -66,4 +66,60 @@ public class WhyUsSectionAppService : IWhyUsSectionService
             throw new WhyUsSectionNotFoundException();
         }
     }
+
+    public async Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId)
+    {
+        return await _repository.GetQuestionsBySectionId(sectionId);
+    }
+
+    public async Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection()
+    {
+        return await _repository.GetAllWhyUsSection();
+    }
+
+    public async Task UpdateQuestion(long questionId, UpdateWhyUsQuestionDto dto)
+    {
+        var question = await _repository.FindWhyUsQuestionById(questionId);
+
+        StopIfWhyUsQuestionNotFound(question);
+
+        question!.Question = dto.Question;
+        question.Answer = dto.Answer;
+        await _unitOfWork.Complete();
+    }
+
+    private static void StopIfWhyUsQuestionNotFound(Why_Us_Question? question)
+    {
+        if (question == null)
+        {
+            throw new WhyUsQuestionNotFoundException();
+        }
+    }
+
+    public async Task<Why_Us_Section?> GetById(long id)
+    {
+        return await _repository.FindById(id);
+    }
+
+    public async Task UpdateWhyUsSection(long id, UpdateWhyUsSectionDto dto)
+    {
+        var section = await _repository.FindById(id);
+
+        StopIfSectionNotFound(section);
+        section!.Image.UniqueName = dto.Media.UniqueName;
+        section.Image.ImageName = dto.Media.ImageName;
+        section.Image.URL = dto.Media.URL;
+        section.Image.Extension = dto.Media.Extension;
+        section.Title = dto.Title;
+
+        await _unitOfWork.Complete();
+    }
+
+    private static void StopIfSectionNotFound(Why_Us_Section? section)
+    {
+        if (section == null)
+        {
+            throw new WhyUsSectionNotFoundException();
+        }
+    }
 }

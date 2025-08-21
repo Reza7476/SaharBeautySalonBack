@@ -47,7 +47,7 @@ public class BannerCommandHandler : BannerHandler
 
         try
         {
-            await _imageService.DeleteMediaByName(banner!.URL);
+            await _imageService.DeleteMediaByURL(banner!.URL);
             MediaDto media = await _imageService.SaveMedia(new AddMediaDto()
             {
                 Media = dto.Image

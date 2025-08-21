@@ -4,5 +4,5 @@ namespace BeautySalon.Common.Interfaces;
 public interface IImageService : IService
 {
     Task<MediaDto> SaveMedia(AddMediaDto dto);
-    Task DeleteMediaByName(string url);
+    Task DeleteMediaByURL(string url);
 }
