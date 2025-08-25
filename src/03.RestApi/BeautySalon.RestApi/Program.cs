@@ -22,6 +22,18 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseCustomExceptionHandler();
 
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API");
+    options.RoutePrefix = "swagger";
+});
+
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/swagger/index.html");
+    return Task.CompletedTask;
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
