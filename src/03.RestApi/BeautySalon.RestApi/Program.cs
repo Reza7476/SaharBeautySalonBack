@@ -2,6 +2,7 @@ using Autofac.Extensions.DependencyInjection;
 using BeautySalon.infrastructure;
 using BeautySalon.RestApi.Configurations.Autofacs;
 using BeautySalon.RestApi.Configurations.Exceptions;
+using BeautySalon.RestApi.Configurations.SwaggerConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<EFDataContext>(options =>
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddSwaggerConfigGen();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
