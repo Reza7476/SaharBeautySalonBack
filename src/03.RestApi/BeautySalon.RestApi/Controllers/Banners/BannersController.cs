@@ -20,7 +20,7 @@ public class BannersController : ControllerBase
         _bannerHandler = bannerHandler;
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<long> Add([FromForm] AddBannerHandlerDto dto)
     {
         return await _bannerHandler.Add(dto);

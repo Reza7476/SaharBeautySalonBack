@@ -21,7 +21,7 @@ public class WhyUsSectionsController : ControllerBase
         _service = service;
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<long> Add([FromForm] AddWhyUsSectionHandlerDto dto)
     {
         return await _handler.Add(dto);
