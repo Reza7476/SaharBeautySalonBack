@@ -23,7 +23,7 @@ public class TreatmentsController : ControllerBase
         _service = service;
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<long> Add([FromForm] AddTreatmentHandlerDto dto)
     {
         return await _handler.Add(dto);
