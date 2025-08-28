@@ -1,0 +1,10 @@
+﻿using BeautySalon.Common.Interfaces;
+using BeautySalon.Services.ContactUs.Contracts.Dto;
+
+namespace BeautySalon.Services.ContactUs.Contracts;
+public interface IAboutUsService : IService
+{
+    Task<long> Add(AddAboutUsDto dto);
+    Task<GetAboutUsDto?> Get();
+    Task Update(long id, UpdateAboutUsDto dto);
+}

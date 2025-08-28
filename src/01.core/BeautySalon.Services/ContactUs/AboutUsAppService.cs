@@ -1,0 +1,64 @@
+﻿using BeautySalon.Common.Interfaces;
+using BeautySalon.Entities.ContactUs;
+using BeautySalon.Services.ContactUs.Contracts;
+using BeautySalon.Services.ContactUs.Contracts.Dto;
+using BeautySalon.Services.ContactUs.Exceptions;
+
+namespace BeautySalon.Services.ContactUs;
+public class AboutUsAppService : IAboutUsService
+{
+    private readonly IAboutUsRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public AboutUsAppService(
+        IAboutUsRepository repository,
+        IUnitOfWork unitOfWork)
+    {
+        _repository = repository;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<long> Add(AddAboutUsDto dto)
+    {
+        var contactUs = new AboutUs()
+        {
+            MobileNumber = dto.MobileNumber,
+            Address = dto.Address,
+            CreateDate = DateTime.UtcNow,
+            Description = dto.Description,
+            Latitude = dto.Latitude,
+            Longitude = dto.Longitude,
+            Telephone = dto.Telephone,
+        };
+
+
+        await _repository.Add(contactUs);
+        await _unitOfWork.Complete();
+
+        return contactUs.Id;
+    }
+
+    public async Task<GetAboutUsDto?> Get()
+    {
+        return await _repository.Get();
+    }
+
+    public async Task Update(long id, UpdateAboutUsDto dto)
+    {
+        var aboutUs = await _repository.FindById(id);
+
+        if(aboutUs == null)
+        {
+            throw new AboutUsNotFoundException();
+        }
+
+        aboutUs.Telephone = dto.Telephone;
+        aboutUs.Longitude = dto.Longitude;
+        aboutUs.Latitude=dto.Latitude;
+        aboutUs.MobileNumber = dto.MobileNumber;
+        aboutUs.Address = dto.Address;
+        aboutUs.Description = dto.Description;
+
+        await _unitOfWork.Complete();
+    }
+}
