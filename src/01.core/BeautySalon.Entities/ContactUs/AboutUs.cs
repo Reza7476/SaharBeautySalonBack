@@ -1,0 +1,13 @@
+﻿namespace BeautySalon.Entities.ContactUs;
+public class AboutUs
+{
+    public long Id { get; set; }
+    public required string MobileNumber { get; set; }
+    public string? Telephone { get; set; }
+    public string? Address { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public string? Description { get; set; }
+    public DateTime CreateDate { get; set; }
+
+}
