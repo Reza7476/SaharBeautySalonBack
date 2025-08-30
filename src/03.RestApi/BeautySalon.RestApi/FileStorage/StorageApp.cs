@@ -8,9 +8,12 @@ public class StorageApp : IImageService
 {
     private readonly IWebHostEnvironment _env;
     private const long MaxFileSize = 5 * 1024 * 1024;
-    public StorageApp(IWebHostEnvironment env)
+    private readonly IHttpContextAccessor _accessor;
+
+    public StorageApp(IWebHostEnvironment env, IHttpContextAccessor accessor)
     {
         _env = env;
+        _accessor = accessor;
     }
 
     public async Task<MediaDto> SaveMedia(AddMediaDto dto)
@@ -33,8 +36,9 @@ public class StorageApp : IImageService
         {
             await dto.Media.CopyToAsync(stream);
         }
+        var URL = $"{_accessor.HttpContext.Request.Scheme}://{_accessor.HttpContext.Request.Host}/uploads/{folderName}/{uniqueName}";
 
-        var URL = $"/uploads/{folderName}/{uniqueName}";
+        //var URL = $"/uploads/{folderName}/{uniqueName}";
         return new MediaDto
         {
             ImageName = Path.GetFileNameWithoutExtension(dto.Media.FileName),

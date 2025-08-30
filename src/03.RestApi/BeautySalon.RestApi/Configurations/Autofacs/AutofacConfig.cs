@@ -31,6 +31,11 @@ public class AutofacModule : Module
         var presentationAssembly = typeof(AutofacConfig).Assembly;
         var applicationAssembly = typeof(BannerCommandHandler).Assembly;
 
+
+        builder.RegisterType<HttpContextAccessor>()
+          .As<IHttpContextAccessor>()
+          .SingleInstance();
+
         builder.RegisterAssemblyTypes(
             serviceAssembly,
             infrastructureAssembly,
