@@ -98,9 +98,11 @@ public class StorageApp : IImageService
 
     public async Task DeleteMediaByURL(string url)
     {
-        var decodedPath = Uri.UnescapeDataString(url);
+        var uri = new Uri(url);
+        var relativePath = uri.AbsolutePath; 
 
-        var fullPath = Path.Combine(_env.WebRootPath, decodedPath.TrimStart('/'));
+        var fullPath = Path.Combine(_env.WebRootPath, relativePath.TrimStart('/'));
+
         if (!File.Exists(fullPath))
             throw new FileDoesNotExistException();
 
@@ -108,14 +110,9 @@ public class StorageApp : IImageService
         {
             await Task.Run(() => File.Delete(fullPath));
         }
-        catch (Exception)
+        catch
         {
-
-            throw new Exception();
+            throw new Exception("خطا در حذف فایل");
         }
     }
-
-
-
-
 }
