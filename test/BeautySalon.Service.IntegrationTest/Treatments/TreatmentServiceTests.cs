@@ -61,10 +61,10 @@ public class TreatmentServiceTests:BusinessIntegrationTest
 
         expected!.Title.Should().Be(treat1.Title);
         expected.Description.Should().Be(treat1.Description);
-        expected.Media!.UniqueName.Should().Be(treat1.Images.First().ImageUniqueName);
-        expected.Media.ImageName.Should().Be(treat1.Images.First().ImageName);
-        expected.Media.Extension.Should().Be(treat1.Images.First().Extension);
-        expected.Media.URL.Should().Be(treat1.Images.First().URL);
+        expected.Media.First().UniqueName.Should().Be(treat1.Images.First().ImageUniqueName);
+        expected.Media.First().ImageName.Should().Be(treat1.Images.First().ImageName);
+        expected.Media.First().Extension.Should().Be(treat1.Images.First().Extension);
+        expected.Media.First().URL.Should().Be(treat1.Images.First().URL);
     }
 
 }

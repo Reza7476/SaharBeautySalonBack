@@ -5,5 +5,5 @@ public class GetTreatmentDetailsDto
 {
     public required string Title { get; set; }
     public required string Description { get; set; }
-    public  MediaDto?  Media { get; set; }
+    public List<MediaDto> Media { get; set; } = default!;
 }
