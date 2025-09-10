@@ -57,6 +57,7 @@ public class EFTreatmentRepository : ITreatmentRepository
                     URL = media.URL,
                     UniqueName = media.ImageUniqueName,
                     ImageName = media.ImageName,
+                    Id=media.Id
                 }).ToList()
             }).FirstOrDefaultAsync();
     }
