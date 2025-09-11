@@ -10,15 +10,28 @@ namespace BeautySalon.infrastructure.Persistence.Treatments;
 public class EFTreatmentRepository : ITreatmentRepository
 {
     private readonly DbSet<Treatment> _treatments;
+    private readonly DbSet<TreatmentImage> _treatmentImages;
 
     public EFTreatmentRepository(EFDataContext context)
     {
         _treatments = context.Set<Treatment>();
+        _treatmentImages=context.Set<TreatmentImage>(); 
+
     }
 
     public async Task Add(Treatment treatment)
     {
         await _treatments.AddAsync(treatment);
+    }
+
+    public async Task AddImage(TreatmentImage treatmentImage)
+    {
+        await _treatmentImages.AddAsync(treatmentImage);
+    }
+
+    public async Task<bool> ExistById(long id)
+    {
+        return await _treatments.AnyAsync(_ => _.Id == id);
     }
 
     public async Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination)
@@ -41,6 +54,7 @@ public class EFTreatmentRepository : ITreatmentRepository
 
         return await query.Paginate(pagination ?? new Pagination());
     }
+
 
     public async Task<GetTreatmentDetailsDto?> GetDetails(long id)
     {

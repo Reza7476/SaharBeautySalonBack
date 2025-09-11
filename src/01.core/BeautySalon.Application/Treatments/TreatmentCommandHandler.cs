@@ -4,7 +4,6 @@ using BeautySalon.Common.Dtos;
 using BeautySalon.Common.Interfaces;
 using BeautySalon.Services.Treatments.Contracts;
 using BeautySalon.Services.Treatments.Contracts.Dto;
-using System.Net.Http.Headers;
 
 namespace BeautySalon.Application.Treatments;
 public class TreatmentCommandHandler : TreatmentHandler
@@ -29,14 +28,32 @@ public class TreatmentCommandHandler : TreatmentHandler
 
         var treatmentId = await _service.Add(new AddTreatmentDto()
         {
-            Description=dto.Description,
-            Title=dto.Title,
-            ImageName=media.ImageName,
-            ImageUniqueName=media.UniqueName,
-            URL =media.URL,
-            Extension=media.Extension
+            Description = dto.Description,
+            Title = dto.Title,
+            ImageName = media.ImageName,
+            ImageUniqueName = media.UniqueName,
+            URL = media.URL,
+            Extension = media.Extension
         });
 
         return treatmentId;
+    }
+
+    public async Task<long> AddImage(long id, AddMediaDto dto)
+    {
+        var media = await _mediaService.SaveMedia(new AddMediaDto()
+        {
+            Media = dto.Media,
+        });
+
+        var treatmentImageId = await _service.AddImageReturnImageId(id, new AddImageDetailsDto
+        {
+            Extension = media.Extension,
+            ImageName = media.ImageName,
+            UniqueName = media.UniqueName,
+            URL = media.URL,
+        });
+
+        return treatmentImageId;
     }
 }

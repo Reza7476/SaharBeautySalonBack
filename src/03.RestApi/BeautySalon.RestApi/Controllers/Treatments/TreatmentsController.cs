@@ -1,5 +1,6 @@
 ﻿using BeautySalon.Application.Treatments.Contracts;
 using BeautySalon.Application.Treatments.Contracts.Dto;
+using BeautySalon.Common.Dtos;
 using BeautySalon.Common.Interfaces;
 using BeautySalon.infrastructure.Persistence.Extensions.Paginations;
 using BeautySalon.Services.Treatments.Contracts;
@@ -41,4 +42,12 @@ public class TreatmentsController : ControllerBase
     {
         return await _service.GetDetails(id);
     }
+
+    [HttpPost("{id}/add-image")]
+    public async Task<long> AddImage([FromRoute]long id,[FromForm]AddMediaDto dto)
+    {
+        return await _handler.AddImage(id, dto);
+    }
+
+
 }

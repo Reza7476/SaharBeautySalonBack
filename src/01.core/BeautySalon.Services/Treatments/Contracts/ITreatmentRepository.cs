@@ -6,7 +6,8 @@ namespace BeautySalon.Services.Treatments.Contracts;
 public interface ITreatmentRepository : IRepository
 {
     Task Add(Treatment treatment);
-
+    Task AddImage(TreatmentImage treatmentImage);
+    Task<bool> ExistById(long id);
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination);
     Task<GetTreatmentDetailsDto?> GetDetails(long id);
 }
