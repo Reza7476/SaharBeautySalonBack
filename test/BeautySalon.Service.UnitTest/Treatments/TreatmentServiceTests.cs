@@ -1,5 +1,8 @@
-﻿using BeautySalon.Entities.Treatments;
+﻿using BeautySalon.Common.Dtos;
+using BeautySalon.Entities.Treatments;
 using BeautySalon.Services.Treatments.Contracts;
+using BeautySalon.Services.Treatments.Exceptions;
+using BeautySalon.Test.Tool.Common;
 using BeautySalon.Test.Tool.Entities.Treatments;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
@@ -36,5 +39,39 @@ public class TreatmentServiceTests : BusinessUnitTest
         expectedImage!.ImageName.Should().Be(dto.ImageName);
         expectedImage.ImageUniqueName.Should().Be(dto.ImageUniqueName);
         expectedImage.URL.Should().Be(dto.URL);
+    }
+
+    [Fact]
+    public async Task AddImage_should_add_image_properly()
+    {
+        var treatment = new TreatmentBuilder()
+            .Build();
+        Save(treatment);
+        var dto = new AddImageDetailsDtoBuilder()
+            .WithUniqueName("name")
+            .WithExtension("extension")
+            .WithImageName("name")
+            .WithUrl("url")
+            .Build();
+        await _sut.AddImageReturnImageId(treatment.Id, dto);
+
+        var expected = ReadContext.Set<TreatmentImage>().First();
+
+        expected.URL.Should().Be(dto.URL);
+        expected.ImageName.Should().Be(dto.ImageName);
+        expected.ImageUniqueName.Should().Be(dto.UniqueName);
+        expected.Extension.Should().Be(dto.Extension);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task AddImageReturnImageId_should_throw_exception_when_treatment_not_found(long id)
+    {
+        var dto = new AddImageDetailsDtoBuilder()
+            .Build();
+        
+        Func<Task> expected = async () => await _sut.AddImageReturnImageId(id, dto);
+        
+        await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
     }
 }
