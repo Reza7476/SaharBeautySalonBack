@@ -15,7 +15,7 @@ public class EFTreatmentRepository : ITreatmentRepository
     public EFTreatmentRepository(EFDataContext context)
     {
         _treatments = context.Set<Treatment>();
-        _treatmentImages=context.Set<TreatmentImage>(); 
+        _treatmentImages = context.Set<TreatmentImage>();
 
     }
 
@@ -32,6 +32,11 @@ public class EFTreatmentRepository : ITreatmentRepository
     public async Task<bool> ExistById(long id)
     {
         return await _treatments.AnyAsync(_ => _.Id == id);
+    }
+
+    public async Task<TreatmentImage?> FindImageByImageId(long imageId)
+    {
+        return await _treatmentImages.FirstOrDefaultAsync(_ => _.Id == imageId);
     }
 
     public async Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination)
@@ -71,8 +76,19 @@ public class EFTreatmentRepository : ITreatmentRepository
                     URL = media.URL,
                     UniqueName = media.ImageUniqueName,
                     ImageName = media.ImageName,
-                    Id=media.Id
+                    Id = media.Id
                 }).ToList()
             }).FirstOrDefaultAsync();
+    }
+
+    public async Task<List<TreatmentImage>> GetTreatmentImages(long id)
+    {
+        return await _treatmentImages.Where(_ => _.TreatmentId == id).ToListAsync();
+    }
+
+    public async Task RemoveImage(TreatmentImage treatmentImage)
+    {
+        _treatmentImages.Remove(treatmentImage);
+        await Task.CompletedTask;
     }
 }

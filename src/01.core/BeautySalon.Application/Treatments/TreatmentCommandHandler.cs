@@ -56,4 +56,10 @@ public class TreatmentCommandHandler : TreatmentHandler
 
         return treatmentImageId;
     }
+
+    public async Task DeleteImage(long imageId, long id)
+    {
+        var url = await _service.GetUrl_Remove_Image(imageId, id);
+        await _mediaService.DeleteMediaByURL(url);
+    }
 }
