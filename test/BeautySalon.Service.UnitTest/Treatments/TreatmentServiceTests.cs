@@ -1,5 +1,4 @@
-﻿using BeautySalon.Common.Dtos;
-using BeautySalon.Entities.Treatments;
+﻿using BeautySalon.Entities.Treatments;
 using BeautySalon.Services.Treatments.Contracts;
 using BeautySalon.Services.Treatments.Exceptions;
 using BeautySalon.Test.Tool.Common;
@@ -69,9 +68,9 @@ public class TreatmentServiceTests : BusinessUnitTest
     {
         var dto = new AddImageDetailsDtoBuilder()
             .Build();
-        
+
         Func<Task> expected = async () => await _sut.AddImageReturnImageId(id, dto);
-        
+
         await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
     }
 
@@ -91,12 +90,12 @@ public class TreatmentServiceTests : BusinessUnitTest
     }
 
     [Theory]
-    [InlineData(-1,-1)]
+    [InlineData(-1, -1)]
     public async Task GetUrl_Remove_Image_should_throw_exception_when_treatment_not_found(long id, long imageId)
     {
 
         Func<Task> expected = async () => await _sut.GetUrl_Remove_Image(imageId, id);
-        
+
         await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
     }
 
@@ -111,6 +110,38 @@ public class TreatmentServiceTests : BusinessUnitTest
         Func<Task> expected = async () => await _sut.GetUrl_Remove_Image(treatment.Images.First().Id, treatment.Id);
 
         await expected.Should().ThrowAsync<NotAllowedDeleteImageException>();
+    }
+
+
+    [Fact]
+    public async Task Update_should_update_treatment_properly()
+    {
+        var treatment = new TreatmentBuilder()
+            .WithTitle("title")
+            .WithDescription("description")
+            .Build();
+        Save(treatment);
+        var dto = new UpdateTreatmentDtoBuilder()
+            .WithDescription("description")
+            .WithTitle("title")
+            .Build();
+
+        await _sut.Update(dto, treatment.Id);
+
+        var expected = ReadContext.Set<Treatment>().FirstOrDefault();
+        expected!.Title.Should().Be(dto.Title);
+        expected.Description.Should().Be(dto.Description);
+    }
+
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task Update_should_throw_exception_when_treatment_not_found(long id)
+    {
+        var dto = new UpdateTreatmentDtoBuilder()
+            .Build();
+        Func<Task> expected = async () => await _sut.Update(dto, id);
+        await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
     }
 
 }

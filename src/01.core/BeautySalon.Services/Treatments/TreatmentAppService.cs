@@ -47,7 +47,7 @@ public class TreatmentAppService : ITreatmentService
 
     public async Task<long> AddImageReturnImageId(long id, AddImageDetailsDto dto)
     {
-        await StopIfTreatmentNotFound(id);
+        await StopIfTreatmentIsNotExist(id);
 
         var treatmentImage = new TreatmentImage()
         {
@@ -63,7 +63,7 @@ public class TreatmentAppService : ITreatmentService
         return treatmentImage.Id;
     }
 
-    private async Task StopIfTreatmentNotFound(long id)
+    private async Task StopIfTreatmentIsNotExist(long id)
     {
         if (!await _repository.ExistById(id))
         {
@@ -83,7 +83,7 @@ public class TreatmentAppService : ITreatmentService
 
     public async Task<string> GetUrl_Remove_Image(long imageId, long id)
     {
-        await StopIfTreatmentNotFound(id);
+        await StopIfTreatmentIsNotExist(id);
         var images = await _repository.GetTreatmentImages(id);
         if (images.Count <= 1)
         {
@@ -94,5 +94,23 @@ public class TreatmentAppService : ITreatmentService
         await _repository.RemoveImage(image!);
         await _unitOfWork.Complete();
         return url;
+    }
+
+    public async Task Update(UpdateTreatmentDto dto, long id)
+    {
+        var treatment = await _repository.FindById(id);
+        StopIfTreatmentNotFound(treatment);
+        treatment!.Title = dto.Title;
+        treatment.Description = dto.Description;
+        await _unitOfWork.Complete();
+
+    }
+
+    private static void StopIfTreatmentNotFound(Treatment? treatment)
+    {
+        if (treatment == null)
+        {
+            throw new TreatmentNotFoundException();
+        }
     }
 }

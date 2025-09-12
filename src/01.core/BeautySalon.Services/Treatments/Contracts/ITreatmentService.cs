@@ -10,4 +10,5 @@ public interface ITreatmentService : IService
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination = null);
     Task<GetTreatmentDetailsDto?> GetDetails(long id);
     Task<string> GetUrl_Remove_Image(long imageId, long id);
+    Task Update(UpdateTreatmentDto dto, long id);
 }
