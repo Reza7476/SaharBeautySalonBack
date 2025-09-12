@@ -34,6 +34,11 @@ public class EFTreatmentRepository : ITreatmentRepository
         return await _treatments.AnyAsync(_ => _.Id == id);
     }
 
+    public async Task<Treatment?> FindById(long id)
+    {
+        return await _treatments.FirstOrDefaultAsync(_ => _.Id == id);
+    }
+
     public async Task<TreatmentImage?> FindImageByImageId(long imageId)
     {
         return await _treatmentImages.FirstOrDefaultAsync(_ => _.Id == imageId);

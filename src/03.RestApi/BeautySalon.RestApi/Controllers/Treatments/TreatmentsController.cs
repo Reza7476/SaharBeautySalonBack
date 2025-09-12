@@ -55,4 +55,10 @@ public class TreatmentsController : ControllerBase
         await _handler.DeleteImage(imageId, id);
     }
 
+
+    [HttpPut("{id}")]
+    public async Task Update([FromRoute] long id, [FromBody]UpdateTreatmentDto dto)
+    {
+        await _service.Update(dto,id);
+    }
 }
