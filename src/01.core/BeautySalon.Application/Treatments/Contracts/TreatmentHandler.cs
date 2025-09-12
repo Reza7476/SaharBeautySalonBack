@@ -7,4 +7,5 @@ public interface TreatmentHandler : IScope
 {
     Task<long> Add(AddTreatmentHandlerDto dto);
     Task<long> AddImage(long id, AddMediaDto dto);
+    Task DeleteImage(long imageId, long id);
 }

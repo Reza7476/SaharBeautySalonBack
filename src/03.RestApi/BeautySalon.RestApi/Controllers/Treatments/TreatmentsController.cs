@@ -31,7 +31,7 @@ public class TreatmentsController : ControllerBase
     }
 
     [HttpGet("all")]
-    public async Task<IPageResult<GetAllTreatmentsDto>> GetAll([FromQuery] Pagination? pagination=null)
+    public async Task<IPageResult<GetAllTreatmentsDto>> GetAll([FromQuery] Pagination? pagination = null)
     {
         return await _service.GetAll(pagination);
     }
@@ -44,10 +44,15 @@ public class TreatmentsController : ControllerBase
     }
 
     [HttpPost("{id}/add-image")]
-    public async Task<long> AddImage([FromRoute]long id,[FromForm]AddMediaDto dto)
+    public async Task<long> AddImage([FromRoute] long id, [FromForm] AddMediaDto dto)
     {
         return await _handler.AddImage(id, dto);
     }
 
+    [HttpDelete("{id}/{imageId}/image")]
+    public async Task DeleteImage(long imageId, long id)
+    {
+        await _handler.DeleteImage(imageId, id);
+    }
 
 }

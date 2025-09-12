@@ -74,4 +74,43 @@ public class TreatmentServiceTests : BusinessUnitTest
         
         await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
     }
+
+    [Fact]
+    public async Task GetUrl_Remove_Image_should_remove_image()
+    {
+        var treatment = new TreatmentBuilder()
+            .WithImage()
+            .WithImage()
+            .Build();
+        Save(treatment);
+
+        await _sut.GetUrl_Remove_Image(treatment.Images.First().Id, treatment.Id);
+
+        var expect = ReadContext.Set<TreatmentImage>().ToList();
+        expect!.Count.Should().Be(1);
+    }
+
+    [Theory]
+    [InlineData(-1,-1)]
+    public async Task GetUrl_Remove_Image_should_throw_exception_when_treatment_not_found(long id, long imageId)
+    {
+
+        Func<Task> expected = async () => await _sut.GetUrl_Remove_Image(imageId, id);
+        
+        await expected.Should().ThrowExactlyAsync<TreatmentNotFoundException>();
+    }
+
+    [Fact]
+    public async Task GetUrl_Remove_Image_should_expected_when_it_has_only_one_image()
+    {
+        var treatment = new TreatmentBuilder()
+            .WithImage()
+            .Build();
+        Save(treatment);
+
+        Func<Task> expected = async () => await _sut.GetUrl_Remove_Image(treatment.Images.First().Id, treatment.Id);
+
+        await expected.Should().ThrowAsync<NotAllowedDeleteImageException>();
+    }
+
 }

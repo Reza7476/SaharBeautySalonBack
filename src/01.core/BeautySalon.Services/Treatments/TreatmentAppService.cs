@@ -80,4 +80,19 @@ public class TreatmentAppService : ITreatmentService
     {
         return await _repository.GetDetails(id);
     }
+
+    public async Task<string> GetUrl_Remove_Image(long imageId, long id)
+    {
+        await StopIfTreatmentNotFound(id);
+        var images = await _repository.GetTreatmentImages(id);
+        if (images.Count <= 1)
+        {
+            throw new NotAllowedDeleteImageException();
+        }
+        var image = await _repository.FindImageByImageId(imageId);
+        var url = image!.URL.ToString();
+        await _repository.RemoveImage(image!);
+        await _unitOfWork.Complete();
+        return url;
+    }
 }
