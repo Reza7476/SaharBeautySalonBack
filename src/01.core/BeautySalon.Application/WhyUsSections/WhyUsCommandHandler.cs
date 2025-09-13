@@ -37,6 +37,7 @@ public class WhyUsCommandHandler : IWhyUsSectionHandler
                 ImageName = media.ImageName,
                 UniqueName = media.UniqueName
             },
+            Description= dto.Description,
         });
 
         return whyUsSectionId;

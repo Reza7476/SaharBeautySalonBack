@@ -9,10 +9,13 @@ public class WhyUsSectionEntityMap : IEntityTypeConfiguration<Why_Us_Section>
     {
         _.ToTable("Why_Us_Sections").HasKey(_ => _.Id);
         
-        _.Property(_ => _.Title).IsRequired().ValueGeneratedOnAdd();
+        _.Property(_ => _.Id).IsRequired().ValueGeneratedOnAdd();
+
+        _.Property(_ => _.Title).IsRequired().IsRequired();
+        
+        _.Property(_ => _.Description).IsRequired().IsRequired();
         
         _.Property(_ => _.CreateDate).IsRequired();
-        
 
         _.OwnsOne(x => x.Image, image =>
         {

@@ -25,6 +25,7 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         {
             CreateDate = DateTime.UtcNow,
             Title = dto.Title,
+            Description=dto.Description,
             Image = new MediaDocument()
             {
                 Extension = dto.Media.Extension,
