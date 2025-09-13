@@ -11,6 +11,7 @@ public class AddWhyUsSectionDtoBuilder
         _dto = new AddWhyUsSectionDto()
         {
             Title = "Title",
+            Description="description",
             Media = new MediaDto()
             {
                 Extension = "extension",
@@ -24,6 +25,12 @@ public class AddWhyUsSectionDtoBuilder
     public AddWhyUsSectionDtoBuilder WithTitle(string title)
     {
         _dto.Title = title;
+        return this;
+    }
+
+    public AddWhyUsSectionDtoBuilder WithDescription(string description)
+    {
+        _dto.Description = description;
         return this;
     }
 

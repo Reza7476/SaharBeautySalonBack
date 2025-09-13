@@ -18,13 +18,19 @@ public class WhyUsSectionBuilder
                 UniqueName = "uniqueName",
                 URL = "url"
             },
-            Title = "title"
+            Title = "title",
+            Description = "description",
         };
     }
 
     public WhyUsSectionBuilder WithTitle(string title)
     {
         _section.Title = title;
+        return this;
+    }
+    public WhyUsSectionBuilder WithDescription(string description)
+    {
+        _section.Description = description;
         return this;
     }
 

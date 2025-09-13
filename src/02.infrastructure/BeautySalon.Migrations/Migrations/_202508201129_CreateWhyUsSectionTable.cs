@@ -10,6 +10,7 @@ public class _202508201129_CreateWhyUsSectionTable : Migration
         Create.Table("Why_Us_Sections")
             .WithColumn("Id").AsInt64().PrimaryKey().NotNullable().Identity()
             .WithColumn("Title").AsString().NotNullable()
+            .WithColumn("Description").AsString().NotNullable()
             .WithColumn("ImageUniqueName").AsString().NotNullable()
             .WithColumn("ImageName").AsString().NotNullable()
             .WithColumn("Extension").AsString().NotNullable()

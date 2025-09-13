@@ -10,6 +10,7 @@ public class Why_Us_Section
 
     public long Id { get; set; }
     public required string Title { get; set; }
+    public required string Description { get; set; }
     public MediaDocument Image { get; set; } = default!;
     public required DateTime CreateDate { get; set; }
     public HashSet<Why_Us_Question> Why_Us_Questions { get; set; }

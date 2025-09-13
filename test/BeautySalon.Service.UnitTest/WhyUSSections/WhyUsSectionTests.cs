@@ -22,12 +22,14 @@ public class WhyUsSectionTests : BusinessUnitTest
         var dto = new AddWhyUsSectionDtoBuilder()
             .WithTitle("title")
             .WithMedia()
+            .WithDescription("description")
             .Build();
 
         await _sut.Add(dto);
 
         var expected = ReadContext.Set<Why_Us_Section>().First();
         expected.Title.Should().Be(dto.Title);
+        expected.Description.Should().Be(dto.Description);
         expected.Image.ImageName.Should().Be(dto.Media.ImageName);
         expected.Image.UniqueName.Should().Be(dto.Media.UniqueName);
         expected.Image.Extension.Should().Be(dto.Media.Extension);
