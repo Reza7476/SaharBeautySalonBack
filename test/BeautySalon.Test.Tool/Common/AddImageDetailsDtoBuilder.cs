@@ -3,11 +3,11 @@
 namespace BeautySalon.Test.Tool.Common;
 public class AddImageDetailsDtoBuilder
 {
-    private readonly AddImageDetailsDto _builder;
+    private readonly ImageDetailsDto _builder;
 
     public AddImageDetailsDtoBuilder()
     {
-        _builder = new AddImageDetailsDto()
+        _builder = new ImageDetailsDto()
         {
             Extension = "extension",
             ImageName="imageName",
@@ -41,7 +41,7 @@ public class AddImageDetailsDtoBuilder
         return this;
     }
 
-    public AddImageDetailsDto Build()
+    public ImageDetailsDto Build()
     {
         return _builder;
     }

@@ -45,7 +45,7 @@ public class TreatmentAppService : ITreatmentService
 
     }
 
-    public async Task<long> AddImageReturnImageId(long id, AddImageDetailsDto dto)
+    public async Task<long> AddImageReturnImageId(long id, ImageDetailsDto dto)
     {
         await StopIfTreatmentIsNotExist(id);
 

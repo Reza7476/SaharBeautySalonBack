@@ -46,7 +46,7 @@ public class TreatmentCommandHandler : TreatmentHandler
             Media = dto.Media,
         });
 
-        var treatmentImageId = await _service.AddImageReturnImageId(id, new AddImageDetailsDto
+        var treatmentImageId = await _service.AddImageReturnImageId(id, new ImageDetailsDto
         {
             Extension = media.Extension,
             ImageName = media.ImageName,

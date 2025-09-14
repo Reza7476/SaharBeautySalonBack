@@ -1,5 +1,5 @@
 ﻿namespace BeautySalon.Common.Dtos;
-public class AddImageDetailsDto
+public class ImageDetailsDto
 {
     public required string UniqueName { get; set; }
     public required string ImageName { get; set; }

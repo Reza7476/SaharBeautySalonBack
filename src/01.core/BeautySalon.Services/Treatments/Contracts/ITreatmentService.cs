@@ -6,7 +6,7 @@ namespace BeautySalon.Services.Treatments.Contracts;
 public interface ITreatmentService : IService
 {
     Task<long> Add(AddTreatmentDto dto);
-    Task<long> AddImageReturnImageId(long id, AddImageDetailsDto dto);
+    Task<long> AddImageReturnImageId(long id, ImageDetailsDto dto);
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination = null);
     Task<GetTreatmentDetailsDto?> GetDetails(long id);
     Task<string> GetUrl_Remove_Image(long imageId, long id);
