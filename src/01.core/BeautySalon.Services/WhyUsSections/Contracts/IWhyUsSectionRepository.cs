@@ -8,6 +8,6 @@ public interface IWhyUsSectionRepository : IRepository
     Task Add(Why_Us_Section whyUsSection);
     Task<Why_Us_Section?> FindById(long sectionId);
     Task<Why_Us_Question?> FindWhyUsQuestionById(long questionId);
-    Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection();
+    Task<GetWhyUsSectionDto?> GetWhyUsSection();
     Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId);
 }

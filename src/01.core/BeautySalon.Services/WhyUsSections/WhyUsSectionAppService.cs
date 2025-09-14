@@ -73,9 +73,9 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         return await _repository.GetQuestionsBySectionId(sectionId);
     }
 
-    public async Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection()
+    public async Task<GetWhyUsSectionDto?> GetWhyUsSection()
     {
-        return await _repository.GetAllWhyUsSection();
+        return await _repository.GetWhyUsSection();
     }
 
     public async Task UpdateQuestion(long questionId, UpdateWhyUsQuestionDto dto)

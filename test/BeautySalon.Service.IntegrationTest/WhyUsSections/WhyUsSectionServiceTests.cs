@@ -34,20 +34,26 @@ public class WhyUsSectionServiceTests : BusinessIntegrationTest
     }
 
     [Fact]
-    public async Task GetAllWhyUsSection_should_return_all_why_us_sections_properly()
+    public async Task GetWhyUsSection_should_return_why_us_section_properly()
     {
         var section = new WhyUsSectionBuilder()
             .WithTitle("title")
+            .WithDescription("description")
+            .WithQuestion()
             .WithMedia()
             .Build();
         Save(section);
 
-        var expected = await _sut.GetAllWhyUsSection();
+        var expected = await _sut.GetWhyUsSection();
 
-        expected.First().Title.Should().Be(section.Title);
-        expected.First().Image.Extension.Should().Be(section.Image.Extension);
-        expected.First().Image.ImageName.Should().Be(section.Image.ImageName);
-        expected.First().Image.UniqueName.Should().Be(section.Image.UniqueName);
-        expected.First().Image.URL.Should().Be(section.Image.URL);
+        expected!.Title.Should().Be(section.Title);
+        expected.Description.Should().Be(section.Description);
+        expected.Image.Extension.Should().Be(section.Image.Extension);
+        expected.Image.ImageName.Should().Be(section.Image.ImageName);
+        expected.Image.UniqueName.Should().Be(section.Image.UniqueName);
+        expected.Image.URL.Should().Be(section.Image.URL);
+        expected.Questions.First().Question.Should().Be(section.Why_Us_Questions.First().Question);
+        expected.Questions.First().Answer.Should().Be(section.Why_Us_Questions.First().Answer);
+        expected.Questions.First().Id.Should().Be(section.Why_Us_Questions.First().Id);
     }
 }
