@@ -46,6 +46,17 @@ public class WhyUsSectionBuilder
         return this;
     }
 
+    public WhyUsSectionBuilder WithQuestion()
+    {
+        _section.Why_Us_Questions.Add(new Why_Us_Question()
+        {
+            Answer="answer",
+            Question="question",
+            CreateDate=DateTime.Now,
+        });
+        return this;
+    }
+
     public Why_Us_Section Build()
     {
         return _section;

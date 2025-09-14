@@ -27,25 +27,32 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
         return await _sections.Where(_ => _.Id == sectionId).FirstOrDefaultAsync();
     }
 
-    public async Task <Why_Us_Question?> FindWhyUsQuestionById(long questionId)
+    public async Task<Why_Us_Question?> FindWhyUsQuestionById(long questionId)
     {
         return await _questions.FirstOrDefaultAsync(_ => _.Id == questionId);
     }
 
-    public async Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection()
+    public async Task<GetWhyUsSectionDto?> GetWhyUsSection()
     {
-        return await _sections.Select(_ => new GetAllWhyUsSectionDto()
+        return await _sections.Include(_ => _.Why_Us_Questions).Select(_ => new GetWhyUsSectionDto()
         {
             Id = _.Id,
             Title = _.Title,
+            Description = _.Description,
             Image = new MediaDto()
             {
                 Extension = _.Image.Extension,
                 ImageName = _.Image.ImageName,
                 UniqueName = _.Image.UniqueName,
                 URL = _.Image.URL
-            }
-        }).ToListAsync();
+            },
+            Questions = _.Why_Us_Questions.Select(question => new GetWhyUsQuestionsDto
+            {
+                Answer = question.Answer,
+                Question = question.Question,
+                Id = question.Id
+            }).ToList()
+        }).FirstOrDefaultAsync();
     }
 
     public async Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId)

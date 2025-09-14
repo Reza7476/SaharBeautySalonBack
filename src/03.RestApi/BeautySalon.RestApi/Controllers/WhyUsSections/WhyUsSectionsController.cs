@@ -43,9 +43,9 @@ public class WhyUsSectionsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<GetAllWhyUsSectionDto>> GetAllWhyUsSection()
+    public async Task<GetWhyUsSectionDto?> GetWhyUsSection()
     {
-        return await _service.GetAllWhyUsSection();
+        return await _service.GetWhyUsSection();
     }
 
     [HttpPut("{questionId}/question")]
