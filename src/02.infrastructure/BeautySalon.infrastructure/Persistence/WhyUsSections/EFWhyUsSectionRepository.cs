@@ -34,19 +34,19 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
 
     public async Task<GetWhyUsSectionDto?> GetWhyUsSection()
     {
-        return await _sections.Include(_ => _.Why_Us_Questions).Select(_ => new GetWhyUsSectionDto()
+        return await _sections.Include(_ => _.Why_Us_Questions).Select(section => new GetWhyUsSectionDto()
         {
-            Id = _.Id,
-            Title = _.Title,
-            Description = _.Description,
-            Image = new MediaDto()
+            Id = section.Id,
+            Title = section.Title,
+            Description = section.Description,
+            Image = new ImageDetailsDto()
             {
-                Extension = _.Image.Extension,
-                ImageName = _.Image.ImageName,
-                UniqueName = _.Image.UniqueName,
-                URL = _.Image.URL
+                Extension = section.Image.Extension,
+                ImageName = section.Image.ImageName,
+                UniqueName = section.Image.UniqueName,
+                URL = section.Image.URL,
             },
-            Questions = _.Why_Us_Questions.Select(question => new GetWhyUsQuestionsDto
+            Questions = section.Why_Us_Questions.Select(question => new GetWhyUsQuestionsDto
             {
                 Answer = question.Answer,
                 Question = question.Question,

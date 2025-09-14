@@ -6,6 +6,6 @@ public class GetWhyUsSectionDto
     public long Id { get; set; }
     public required string Title { get; set; }
     public string Description { get; set; } = default!;
-    public MediaDto Image { get; set; } = default!;
+    public ImageDetailsDto Image { get; set; } = default!;
     public List<GetWhyUsQuestionsDto> Questions { get; set; } = new();
 }
