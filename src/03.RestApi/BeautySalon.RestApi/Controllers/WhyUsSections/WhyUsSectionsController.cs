@@ -27,12 +27,12 @@ public class WhyUsSectionsController : ControllerBase
         return await _handler.Add(dto);
     }
 
-    [HttpPatch("{sectionId}/questions")]
-    public async Task AddQuestions(
+    [HttpPost("{sectionId}/add-question")]
+    public async Task<long> AddQuestion(
         [FromRoute] long sectionId,
         [FromBody] AddWhyUsQuestionDto dto)
     {
-        await _service.AddQuestions(dto, sectionId);
+        return await _service.AddQuestion(dto, sectionId);
     }
 
     [HttpGet("{sectionId}/questions")]

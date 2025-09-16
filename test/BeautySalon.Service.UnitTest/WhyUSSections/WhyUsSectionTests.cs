@@ -43,14 +43,15 @@ public class WhyUsSectionTests : BusinessUnitTest
             .Build();
         Save(section);
         var dto = new AddWhyUsQuestionDtoBuilder()
-            .WithQuestions("question", "answer")
+            .WithQuestion("question")
+            .WithAnswer("answer")
             .Build();
 
-        await _sut.AddQuestions(dto, section.Id);
+        await _sut.AddQuestion(dto, section.Id);
 
         var expected = ReadContext.Set<Why_Us_Question>().First();
-        expected.Question.Should().Be(dto.Questions.First().Question);
-        expected.Answer.Should().Be(dto.Questions.First().Answer);
+        expected.Question.Should().Be(dto.Question);
+        expected.Answer.Should().Be(dto.Answer);
     }
 
     [Theory]
@@ -60,7 +61,7 @@ public class WhyUsSectionTests : BusinessUnitTest
         var dto = new AddWhyUsQuestionDtoBuilder()
             .Build();
 
-        Func<Task> expected = async () => await _sut.AddQuestions(dto, sectionId);
+        Func<Task> expected = async () => await _sut.AddQuestion(dto, sectionId);
 
         await expected.Should().ThrowExactlyAsync<WhyUsSectionNotFoundException>();
     }

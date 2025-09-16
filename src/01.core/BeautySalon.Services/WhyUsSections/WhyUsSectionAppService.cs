@@ -41,23 +41,20 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         return whyUsSection.Id;
     }
 
-    public async Task AddQuestions(AddWhyUsQuestionDto dto, long sectionId)
+    public async Task<long> AddQuestion(AddWhyUsQuestionDto dto, long sectionId)
     {
         var section = await _repository.FindById(sectionId);
         StopIfWhyUsSectionNotFound(section);
-
-        foreach (var question in dto.Questions)
+        var question = new Why_Us_Question()
         {
-            section!.Why_Us_Questions.Add(new Why_Us_Question()
-            {
-                Answer = question.Answer,
-                Question = question.Question,
-                CreateDate = DateTime.UtcNow
-            });
-        }
-
+            Question = dto.Question,
+            Answer = dto.Answer,
+            CreateDate = DateTime.UtcNow,
+            SectionId= sectionId
+        };
+        await _repository.AddQuestion(question);
         await _unitOfWork.Complete();
-
+        return question.Id;       
     }
 
     private static void StopIfWhyUsSectionNotFound(Why_Us_Section? section)

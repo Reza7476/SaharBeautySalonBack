@@ -66,4 +66,9 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
                 Id = _.Id
             }).ToListAsync();
     }
+
+    public async Task AddQuestion(Why_Us_Question question)
+    {
+        await _questions.AddAsync(question);
+    }
 }
