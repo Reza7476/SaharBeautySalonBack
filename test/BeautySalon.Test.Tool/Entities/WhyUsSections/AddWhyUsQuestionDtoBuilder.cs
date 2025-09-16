@@ -1,5 +1,4 @@
-﻿using BeautySalon.Common.Dtos;
-using BeautySalon.Services.WhyUsSections.Contracts.Dto;
+﻿using BeautySalon.Services.WhyUsSections.Contracts.Dto;
 
 namespace BeautySalon.Test.Tool.Entities.WhyUsSections;
 public class AddWhyUsQuestionDtoBuilder
@@ -10,17 +9,20 @@ public class AddWhyUsQuestionDtoBuilder
     {
         _dto = new AddWhyUsQuestionDto()
         {
-            Questions = new List<QuestionAndAnswerDto>(),
+            Answer = "answer",
+            Question = "question"
         };
     }
 
-    public AddWhyUsQuestionDtoBuilder WithQuestions(string question,string answer)
+    public AddWhyUsQuestionDtoBuilder WithQuestion(string question)
     {
-        _dto.Questions.Add(new QuestionAndAnswerDto()
-        {
-            Answer = answer,
-            Question = question
-        });
+        _dto.Question = question;
+        return this;
+    }
+
+    public AddWhyUsQuestionDtoBuilder WithAnswer(string answer)
+    {
+        _dto.Answer = answer;
         return this;
     }
 

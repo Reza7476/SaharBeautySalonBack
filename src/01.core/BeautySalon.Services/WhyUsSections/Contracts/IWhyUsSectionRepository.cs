@@ -10,4 +10,5 @@ public interface IWhyUsSectionRepository : IRepository
     Task<Why_Us_Question?> FindWhyUsQuestionById(long questionId);
     Task<GetWhyUsSectionDto?> GetWhyUsSection();
     Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId);
+    Task AddQuestion(Why_Us_Question question);
 }

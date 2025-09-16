@@ -6,7 +6,7 @@ namespace BeautySalon.Services.WhyUsSections.Contracts;
 public interface IWhyUsSectionService : IService
 {
     Task<long> Add(AddWhyUsSectionDto dto);
-    Task AddQuestions(AddWhyUsQuestionDto dto, long sectionId);
+    Task<long> AddQuestion(AddWhyUsQuestionDto dto, long sectionId);
     Task<GetWhyUsSectionDto?> GetWhyUsSection();
     Task<Why_Us_Section?> GetById(long id);
     Task<List<GetWhyUsQuestionsDto>> GetQuestionsBySectionId(long sectionId);
