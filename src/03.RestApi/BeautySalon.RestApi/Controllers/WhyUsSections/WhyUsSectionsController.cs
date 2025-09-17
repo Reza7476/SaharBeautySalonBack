@@ -68,4 +68,10 @@ public class WhyUsSectionsController : ControllerBase
     {
         await _service.DeleteQuestion(questionId);
     }
+
+    [HttpGet("{id}")]
+    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionForEdit(long id)
+    {
+        return await _service.GetWhyUsSectionByIdForEdit(id);
+    }
 }

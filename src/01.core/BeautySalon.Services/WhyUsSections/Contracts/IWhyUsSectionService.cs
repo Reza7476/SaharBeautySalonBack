@@ -13,4 +13,5 @@ public interface IWhyUsSectionService : IService
     Task UpdateQuestion(long questionId, UpdateWhyUsQuestionDto dto);
     Task UpdateWhyUsSection(long id, UpdateWhyUsSectionDto dto);
     Task DeleteQuestion(long questionId);
+    Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionByIdForEdit(long id);
 }
