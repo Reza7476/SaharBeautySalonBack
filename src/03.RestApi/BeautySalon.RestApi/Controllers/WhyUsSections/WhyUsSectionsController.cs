@@ -64,8 +64,8 @@ public class WhyUsSectionsController : ControllerBase
     }
 
     [HttpDelete("{questionId}/question")]
-    public async Task Delete(long id)
+    public async Task Delete(long questionId)
     {
-        await _service.DeleteQuestion(id);
+        await _service.DeleteQuestion(questionId);
     }
 }
