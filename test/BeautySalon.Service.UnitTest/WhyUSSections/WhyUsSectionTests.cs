@@ -4,6 +4,7 @@ using BeautySalon.Services.WhyUsSections.Exceptions;
 using BeautySalon.Test.Tool.Entities.WhyUsSections;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
+using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace BeautySalon.Service.UnitTest.WhyUSSections;
@@ -118,11 +119,36 @@ public class WhyUsSectionTests : BusinessUnitTest
 
         await _sut.UpdateWhyUsSection(section.Id, dto);
 
-        var expected=ReadContext.Set<Why_Us_Section>().First();
+        var expected = ReadContext.Set<Why_Us_Section>().First();
         expected.Title.Should().Be(dto.Title);
         expected.Image.Extension.Should().Be(dto.Media.Extension);
         expected.Image.ImageName.Should().Be(dto.Media.ImageName);
         expected.Image.UniqueName.Should().Be(dto.Media.UniqueName);
         expected.Image.URL.Should().Be(dto.Media.URL);
+    }
+
+    [Fact]
+    public async Task DeleteQuestion_should_remove_question_properly()
+    {
+        var section = new WhyUsSectionBuilder()
+            .Build();
+        Save(section);
+        var question = new WhyUsQuestionBuilder()
+            .WithSectionId(section.Id)
+            .Build();
+        Save(question);
+
+        await _sut.DeleteQuestion(question.Id);
+
+        var expected = ReadContext.Set<Why_Us_Question>().FirstOrDefault();
+        expected.Should().BeNull();
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task DeleteQuestion_should_throw_exception_when_question_not_found(long questionId)
+    {
+        Func<Task> expected=async()=>await _sut.DeleteQuestion(questionId);
+        await expected.Should().ThrowExactlyAsync<WhyUsQuestionNotFoundException>();
     }
 }

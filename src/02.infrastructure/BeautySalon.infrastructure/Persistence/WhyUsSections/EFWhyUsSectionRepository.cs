@@ -71,4 +71,10 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
     {
         await _questions.AddAsync(question);
     }
+
+    public async Task DeleteQuestion(Why_Us_Question question)
+    {
+        _questions.Remove(question);
+        await Task.CompletedTask;
+    }
 }
