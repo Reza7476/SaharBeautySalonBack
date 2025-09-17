@@ -42,39 +42,4 @@ public class WhyUsCommandHandler : IWhyUsSectionHandler
 
         return whyUsSectionId;
     }
-
-    public async Task UpdateWhyUsSection(long id, UpdateWhyUsSectionHandlerDto dto)
-    {
-        var section = await _service.GetById(id);
-
-        if (section == null)
-        {
-            throw new WhyUsSectionNotFoundException();
-        }
-
-        try
-        {
-            await _mediaService.DeleteMediaByURL(section.Image.URL);
-            MediaDto media = await _mediaService.SaveMedia(new AddMediaDto()
-            {
-                Media = dto.Image
-            });
-            await _service.UpdateWhyUsSection(id, new UpdateWhyUsSectionDto()
-            {
-                Media = new MediaDto()
-                {
-                    Extension = media.Extension,
-                    ImageName = media.ImageName,
-                    UniqueName = media.UniqueName,
-                    URL = media.URL
-                },
-                Title=dto.Title
-            });
-
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
 }

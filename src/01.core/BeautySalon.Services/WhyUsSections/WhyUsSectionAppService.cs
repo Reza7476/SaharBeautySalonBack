@@ -99,17 +99,13 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         return await _repository.FindById(id);
     }
 
-    public async Task UpdateWhyUsSection(long id, UpdateWhyUsSectionDto dto)
+    public async Task UpdateWhyUsSection(long id, EditTitleAndDescriptionWhyUsSectionDto dto)
     {
         var section = await _repository.FindById(id);
 
         StopIfSectionNotFound(section);
-        section!.Image.UniqueName = dto.Media.UniqueName;
-        section.Image.ImageName = dto.Media.ImageName;
-        section.Image.URL = dto.Media.URL;
-        section.Image.Extension = dto.Media.Extension;
-        section.Title = dto.Title;
-
+        section!.Title = dto.Title;
+        section.Description = dto.Description;
         await _unitOfWork.Complete();
     }
 

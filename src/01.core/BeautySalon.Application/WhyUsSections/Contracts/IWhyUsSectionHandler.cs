@@ -5,5 +5,4 @@ namespace BeautySalon.Application.WhyUsSections.Contracts;
 public interface IWhyUsSectionHandler : IScope
 {
     Task<long> Add(AddWhyUsSectionHandlerDto dto);
-    Task UpdateWhyUsSection(long id, UpdateWhyUsSectionHandlerDto dto);
 }
