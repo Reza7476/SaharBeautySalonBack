@@ -3,6 +3,7 @@ using BeautySalon.Application.WhyUsSections.Contracts.Dto;
 using BeautySalon.Services.WhyUsSections.Contracts;
 using BeautySalon.Services.WhyUsSections.Contracts.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Contracts;
 
 namespace BeautySalon.RestApi.Controllers.WhyUsSections;
 [Route("api/why-us-sections")]
@@ -56,10 +57,15 @@ public class WhyUsSectionsController : ControllerBase
         await _service.UpdateQuestion(questionId, dto);
     }
 
-
     [HttpPut("{id}")]
     public async Task UpdateWhyUsSection([FromRoute] long id, [FromForm]UpdateWhyUsSectionHandlerDto dto)
     {
         await _handler.UpdateWhyUsSection(id, dto);
+    }
+
+    [HttpDelete("{questionId}/question")]
+    public async Task Delete(long id)
+    {
+        await _service.DeleteQuestion(id);
     }
 }

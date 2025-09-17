@@ -120,4 +120,13 @@ public class WhyUsSectionAppService : IWhyUsSectionService
             throw new WhyUsSectionNotFoundException();
         }
     }
+
+    public async Task DeleteQuestion(long questionId)
+    {
+        var question = await _repository.FindWhyUsQuestionById(questionId);
+        StopIfWhyUsQuestionNotFound(question);
+
+        await _repository.DeleteQuestion(question!);
+        await _unitOfWork.Complete();
+    }
 }
