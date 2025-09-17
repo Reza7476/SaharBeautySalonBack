@@ -77,4 +77,20 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
         _questions.Remove(question);
         await Task.CompletedTask;
     }
+
+    public async Task<GetWhyUsSectionForEditDto?> GetByIdForEdit(long id)
+    {
+        return await _sections.Where(_ => _.Id == id).Select(_ => new GetWhyUsSectionForEditDto()
+        {
+            Description=_.Description,
+            Image=new ImageDetailsDto()
+            {
+                Extension = _.Image.Extension,
+                ImageName = _.Image.ImageName,
+                UniqueName = _.Image.UniqueName,
+                URL = _.Image.URL
+            },
+            Title=_.Title,
+        }).FirstOrDefaultAsync();
+    }
 }

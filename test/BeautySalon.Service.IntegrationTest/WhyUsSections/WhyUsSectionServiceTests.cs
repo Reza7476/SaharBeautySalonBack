@@ -56,4 +56,24 @@ public class WhyUsSectionServiceTests : BusinessIntegrationTest
         expected.Questions.First().Answer.Should().Be(section.Why_Us_Questions.First().Answer);
         expected.Questions.First().Id.Should().Be(section.Why_Us_Questions.First().Id);
     }
+
+    [Fact]
+    public async Task GetWhyUsSectionForEditById_should_return_why_us_section_properly()
+    {
+        var section = new WhyUsSectionBuilder()
+            .WithTitle("title")
+            .WithDescription("description")
+            .WithMedia()
+            .Build();
+        Save(section);
+
+        var expected = await _sut.GetWhyUsSectionByIdForEdit(section.Id);
+
+        expected!.Description.Should().Be(section.Description);
+        expected.Title.Should().Be(section.Title);
+        expected.Image!.Extension.Should().Be(section.Image.Extension);
+        expected.Image.UniqueName.Should().Be(section.Image.UniqueName);
+        expected.Image.URL.Should().Be(section.Image.URL);
+        expected.Image.ImageName.Should().Be(section.Image.ImageName);
+    }
 }

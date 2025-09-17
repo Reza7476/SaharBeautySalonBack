@@ -129,4 +129,9 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         await _repository.DeleteQuestion(question!);
         await _unitOfWork.Complete();
     }
+
+    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionByIdForEdit(long id)
+    {
+        return await _repository.GetByIdForEdit(id);
+    }
 }
