@@ -4,7 +4,6 @@ using BeautySalon.Services.WhyUsSections.Exceptions;
 using BeautySalon.Test.Tool.Entities.WhyUsSections;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
-using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace BeautySalon.Service.UnitTest.WhyUSSections;
@@ -105,27 +104,36 @@ public class WhyUsSectionTests : BusinessUnitTest
     }
 
     [Fact]
-    public async Task UpdateWgyUsSection_should_update_section_properly()
+    public async Task UpdateWhyUsSection_should_update_title_description_section_properly()
     {
         var section = new WhyUsSectionBuilder()
             .WithTitle("title")
             .WithMedia()
             .Build();
         Save(section);
-        var dto = new UpdateWhyUsSectionDtoBuilder()
+        var dto = new UpdateTitleAndDescriptionWhyUsSectionDtoBuilder()
             .WithTitle("title")
-            .WithMedia()
+            .WithDescription("description")
             .Build();
 
         await _sut.UpdateWhyUsSection(section.Id, dto);
 
         var expected = ReadContext.Set<Why_Us_Section>().First();
         expected.Title.Should().Be(dto.Title);
-        expected.Image.Extension.Should().Be(dto.Media.Extension);
-        expected.Image.ImageName.Should().Be(dto.Media.ImageName);
-        expected.Image.UniqueName.Should().Be(dto.Media.UniqueName);
-        expected.Image.URL.Should().Be(dto.Media.URL);
+        expected.Description.Should().Be(dto.Description);
     }
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task UpdateWhyUsSection_should_throw_exception_when_section_not_found(long id)
+    {
+        var dto = new UpdateTitleAndDescriptionWhyUsSectionDtoBuilder()
+            .Build();
+        Func<Task> expected = async () => await _sut.UpdateWhyUsSection(id, dto);
+        
+        await expected.Should().ThrowAsync<WhyUsSectionNotFoundException>();
+    }
+
 
     [Fact]
     public async Task DeleteQuestion_should_remove_question_properly()
@@ -148,7 +156,7 @@ public class WhyUsSectionTests : BusinessUnitTest
     [InlineData(-1)]
     public async Task DeleteQuestion_should_throw_exception_when_question_not_found(long questionId)
     {
-        Func<Task> expected=async()=>await _sut.DeleteQuestion(questionId);
+        Func<Task> expected = async () => await _sut.DeleteQuestion(questionId);
         await expected.Should().ThrowExactlyAsync<WhyUsQuestionNotFoundException>();
     }
 }

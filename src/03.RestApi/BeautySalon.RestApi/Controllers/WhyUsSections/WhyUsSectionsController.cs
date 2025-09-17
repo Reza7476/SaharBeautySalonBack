@@ -58,19 +58,21 @@ public class WhyUsSectionsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task UpdateWhyUsSection([FromRoute] long id, [FromForm]UpdateWhyUsSectionHandlerDto dto)
+    public async Task UpdateWhyUsSection(
+        [FromRoute] long id, 
+        [FromBody] EditTitleAndDescriptionWhyUsSectionDto dto)
     {
-        await _handler.UpdateWhyUsSection(id, dto);
+        await _service.UpdateWhyUsSection(id, dto);
     }
 
     [HttpDelete("{questionId}/question")]
-    public async Task Delete(long questionId)
+    public async Task Delete([FromRoute]long questionId)
     {
         await _service.DeleteQuestion(questionId);
     }
 
     [HttpGet("{id}")]
-    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionForEdit(long id)
+    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionForEdit([FromRoute]long id)
     {
         return await _service.GetWhyUsSectionByIdForEdit(id);
     }
