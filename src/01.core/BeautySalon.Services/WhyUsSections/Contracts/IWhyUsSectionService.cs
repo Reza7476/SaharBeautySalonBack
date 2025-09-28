@@ -1,4 +1,5 @@
-﻿using BeautySalon.Common.Interfaces;
+﻿using BeautySalon.Common.Dtos;
+using BeautySalon.Common.Interfaces;
 using BeautySalon.Entities.WhyUsSections;
 using BeautySalon.Services.WhyUsSections.Contracts.Dto;
 
@@ -14,4 +15,5 @@ public interface IWhyUsSectionService : IService
     Task UpdateWhyUsSection(long id, EditTitleAndDescriptionWhyUsSectionDto dto);
     Task DeleteQuestion(long questionId);
     Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionByIdForEdit(long id);
+    Task UpdateImage(long id, ImageDetailsDto imageDetailsDto);
 }
