@@ -42,4 +42,28 @@ public class WhyUsCommandHandler : IWhyUsSectionHandler
 
         return whyUsSectionId;
     }
+
+    public async Task UpdateImage(long id, AddMediaDto dto)
+    {
+        var imgUrl = await _service.GetById(id);
+        if (imgUrl == null)
+        {
+            throw new WhyUsSectionNotFoundException();
+        }
+        await _mediaService.DeleteMediaByURL(imgUrl.Image.URL);
+        MediaDto media=await _mediaService.SaveMedia(new AddMediaDto()
+        {
+            Media=dto.Media
+        });
+
+        await _service.UpdateImage(id, new ImageDetailsDto()
+        {
+            Extension = media.Extension,
+            ImageName = media.ImageName,
+            UniqueName = media.UniqueName,
+            URL = media.URL
+        });
+
+
+    }
 }

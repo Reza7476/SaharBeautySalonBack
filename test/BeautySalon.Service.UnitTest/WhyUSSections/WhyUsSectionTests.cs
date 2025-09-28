@@ -1,6 +1,7 @@
 ﻿using BeautySalon.Entities.WhyUsSections;
 using BeautySalon.Services.WhyUsSections.Contracts;
 using BeautySalon.Services.WhyUsSections.Exceptions;
+using BeautySalon.Test.Tool.Common;
 using BeautySalon.Test.Tool.Entities.WhyUsSections;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
@@ -158,5 +159,28 @@ public class WhyUsSectionTests : BusinessUnitTest
     {
         Func<Task> expected = async () => await _sut.DeleteQuestion(questionId);
         await expected.Should().ThrowExactlyAsync<WhyUsQuestionNotFoundException>();
+    }
+
+    [Fact]
+    public async Task UpdateImage_should_update_image_properly()
+    {
+        var whyUs = new WhyUsSectionBuilder()
+            .WithMedia()
+            .Build();
+        Save(whyUs);
+        var dto = new AddImageDetailsDtoBuilder()
+            .WithUniqueName("unique")
+            .WithExtension(".jpeg")
+            .WithImageName("imageName")
+            .WithUrl("url")
+            .Build();
+
+        await _sut.UpdateImage(whyUs.Id, dto);
+
+        var expected = ReadContext.Set<Why_Us_Section>().First();
+        expected.Image.URL.Should().Be(dto.URL);
+        expected.Image.ImageName.Should().Be(dto.ImageName);
+        expected.Image.Extension.Should().Be(dto.Extension);
+        expected.Image.UniqueName.Should().Be(dto.UniqueName);
     }
 }

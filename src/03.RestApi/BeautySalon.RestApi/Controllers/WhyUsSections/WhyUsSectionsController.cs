@@ -1,9 +1,9 @@
 ﻿using BeautySalon.Application.WhyUsSections.Contracts;
 using BeautySalon.Application.WhyUsSections.Contracts.Dto;
+using BeautySalon.Common.Dtos;
 using BeautySalon.Services.WhyUsSections.Contracts;
 using BeautySalon.Services.WhyUsSections.Contracts.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.Contracts;
 
 namespace BeautySalon.RestApi.Controllers.WhyUsSections;
 [Route("api/why-us-sections")]
@@ -52,28 +52,37 @@ public class WhyUsSectionsController : ControllerBase
     [HttpPut("{questionId}/question")]
     public async Task UpdateQuestion(
         [FromRoute] long questionId,
-        [FromBody]UpdateWhyUsQuestionDto dto)
+        [FromBody] UpdateWhyUsQuestionDto dto)
     {
         await _service.UpdateQuestion(questionId, dto);
     }
 
     [HttpPut("{id}")]
     public async Task UpdateWhyUsSection(
-        [FromRoute] long id, 
+        [FromRoute] long id,
         [FromBody] EditTitleAndDescriptionWhyUsSectionDto dto)
     {
         await _service.UpdateWhyUsSection(id, dto);
     }
 
     [HttpDelete("{questionId}/question")]
-    public async Task Delete([FromRoute]long questionId)
+    public async Task Delete([FromRoute] long questionId)
     {
         await _service.DeleteQuestion(questionId);
     }
 
     [HttpGet("{id}")]
-    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionForEdit([FromRoute]long id)
+    public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionForEdit([FromRoute] long id)
     {
         return await _service.GetWhyUsSectionByIdForEdit(id);
     }
+
+    [HttpPatch("{id}/image")]
+    public async Task UpdateImage(
+        [FromRoute] long id,
+        [FromForm] AddMediaDto dto)
+    {
+        await _handler.UpdateImage(id, dto);
+    }
+
 }

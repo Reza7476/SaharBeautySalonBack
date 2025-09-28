@@ -1,4 +1,5 @@
-﻿using BeautySalon.Common.Interfaces;
+﻿using BeautySalon.Common.Dtos;
+using BeautySalon.Common.Interfaces;
 using BeautySalon.Entities.Commons;
 using BeautySalon.Entities.WhyUsSections;
 using BeautySalon.Services.WhyUsSections.Contracts;
@@ -129,5 +130,18 @@ public class WhyUsSectionAppService : IWhyUsSectionService
     public async Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionByIdForEdit(long id)
     {
         return await _repository.GetByIdForEdit(id);
+    }
+
+    public async Task UpdateImage(long id, ImageDetailsDto dto)
+    {
+        var whyUs=await _repository.FindById(id);
+
+        StopIfSectionNotFound(whyUs);
+
+        whyUs!.Image.UniqueName = dto.UniqueName;
+        whyUs.Image.ImageName = dto.ImageName;
+        whyUs.Image.URL = dto.URL;
+        whyUs.Image.Extension = dto.Extension;
+        await _unitOfWork.Complete();
     }
 }
