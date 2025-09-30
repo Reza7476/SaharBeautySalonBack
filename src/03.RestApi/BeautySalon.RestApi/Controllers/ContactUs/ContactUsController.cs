@@ -1,4 +1,6 @@
-﻿using BeautySalon.Services.ContactUs.Contracts;
+﻿using BeautySalon.Application.ContactUs.Contacts;
+using BeautySalon.Application.ContactUs.Contacts.Dtos;
+using BeautySalon.Services.ContactUs.Contracts;
 using BeautySalon.Services.ContactUs.Contracts.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,16 +10,20 @@ namespace BeautySalon.RestApi.Controllers.ContactUs;
 public class ContactUsController : ControllerBase
 {
     private readonly IAboutUsService _service;
+    private readonly ContactUsHandler _handler;
 
-    public ContactUsController(IAboutUsService service)
+
+    public ContactUsController(IAboutUsService service, ContactUsHandler handler)
     {
         _service = service;
+        _handler = handler;
     }
 
     [HttpPost("add")]
-    public async Task<long> Add([FromBody]AddAboutUsDto dto)
+    public async Task<long> Add([FromForm] AddAboutUsHandlerDto dto)
     {
-        return await _service.Add(dto);
+        return await _handler.Add(dto);
+
     }
 
     [HttpGet]

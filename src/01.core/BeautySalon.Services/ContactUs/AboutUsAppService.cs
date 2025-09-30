@@ -1,4 +1,5 @@
 ﻿using BeautySalon.Common.Interfaces;
+using BeautySalon.Entities.Commons;
 using BeautySalon.Entities.ContactUs;
 using BeautySalon.Services.ContactUs.Contracts;
 using BeautySalon.Services.ContactUs.Contracts.Dto;
@@ -29,8 +30,16 @@ public class AboutUsAppService : IAboutUsService
             Latitude = dto.Latitude,
             Longitude = dto.Longitude,
             Telephone = dto.Telephone,
+            Email = dto.Email,
+            Instagram = dto.Instagram,
+            LogoImage = dto.LogoDetails != null ? new MediaDocument()
+            {
+                Extension = dto.LogoDetails.Extension,
+                ImageName = dto.LogoDetails.ImageName,
+                UniqueName = dto.LogoDetails.UniqueName,
+                URL = dto.LogoDetails.URL
+            } : null
         };
-
 
         await _repository.Add(contactUs);
         await _unitOfWork.Complete();
@@ -47,14 +56,14 @@ public class AboutUsAppService : IAboutUsService
     {
         var aboutUs = await _repository.FindById(id);
 
-        if(aboutUs == null)
+        if (aboutUs == null)
         {
             throw new AboutUsNotFoundException();
         }
 
         aboutUs.Telephone = dto.Telephone;
         aboutUs.Longitude = dto.Longitude;
-        aboutUs.Latitude=dto.Latitude;
+        aboutUs.Latitude = dto.Latitude;
         aboutUs.MobileNumber = dto.MobileNumber;
         aboutUs.Address = dto.Address;
         aboutUs.Description = dto.Description;

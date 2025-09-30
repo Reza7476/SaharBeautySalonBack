@@ -4,7 +4,7 @@ using BeautySalon.Common.Interfaces;
 
 namespace BeautySalon.RestApi.FileStorage;
 
-public class StorageApp : IImageService
+public class StorageApp : IMediaService
 {
     private readonly IWebHostEnvironment _env;
     private const long MaxFileSize = 5 * 1024 * 1024;

@@ -1,7 +1,7 @@
-﻿using BeautySalon.Common.Dtos;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace BeautySalon.Services.ContactUs.Contracts.Dto;
-public class AddAboutUsDto
+namespace BeautySalon.Application.ContactUs.Contacts.Dtos;
+public class AddAboutUsHandlerDto
 {
     public required string MobileNumber { get; set; }
     public string? Telephone { get; set; }
@@ -11,5 +11,5 @@ public class AddAboutUsDto
     public string? Description { get; set; }
     public string? Instagram { get; set; }
     public string? Email { get; set; }
-    public ImageDetailsDto? LogoDetails { get; set; }
+    public IFormFile? LogoImage { get; set; }
 }

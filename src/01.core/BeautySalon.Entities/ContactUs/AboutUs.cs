@@ -1,4 +1,6 @@
-﻿namespace BeautySalon.Entities.ContactUs;
+﻿using BeautySalon.Entities.Commons;
+
+namespace BeautySalon.Entities.ContactUs;
 public class AboutUs
 {
     public long Id { get; set; }
@@ -8,6 +10,9 @@ public class AboutUs
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public string? Description { get; set; }
+    public string?  Email { get; set; }
+    public string? Instagram { get; set; }
+    public MediaDocument? LogoImage { get; set; }
     public DateTime CreateDate { get; set; }
 
 }
