@@ -16,6 +16,14 @@ public class _202508280913_CreateAboutUsTable : Migration
             .WithColumn("Latitude").AsDouble().Nullable()
             .WithColumn("Longitude").AsDouble().Nullable()
             .WithColumn("Description").AsString().Nullable()
+            
+            .WithColumn("Email").AsString().Nullable()
+            .WithColumn("Instagram").AsString().Nullable()
+            .WithColumn("UniqueName").AsString().Nullable()
+            .WithColumn("ImageName").AsString().Nullable()
+            .WithColumn("Extension").AsString().Nullable()
+            .WithColumn("URL").AsString().Nullable()
+
             .WithColumn("CreateDate").AsDateTime2().NotNullable();
     }
 

@@ -11,11 +11,11 @@ namespace BeautySalon.Application.Banners;
 public class BannerCommandHandler : BannerHandler
 {
     private readonly IBannerService _bannerService;
-    private readonly IImageService _imageService;
+    private readonly IMediaService _imageService;
 
     public BannerCommandHandler(
         IBannerService bannerService,
-        IImageService imageService)
+        IMediaService imageService)
     {
         _bannerService = bannerService;
         _imageService = imageService;

@@ -9,11 +9,11 @@ using BeautySalon.Services.WhyUsSections.Exceptions;
 namespace BeautySalon.Application.WhyUsSections;
 public class WhyUsCommandHandler : IWhyUsSectionHandler
 {
-    private readonly IImageService _mediaService;
+    private readonly IMediaService _mediaService;
     private readonly IWhyUsSectionService _service;
 
     public WhyUsCommandHandler(
-        IImageService mediaService,
+        IMediaService mediaService,
         IWhyUsSectionService service)
     {
         _mediaService = mediaService;

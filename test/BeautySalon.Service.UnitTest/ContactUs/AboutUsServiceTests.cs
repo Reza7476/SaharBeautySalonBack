@@ -26,6 +26,9 @@ public class AboutUsServiceTests : BusinessUnitTest
             .WithTelephone("telephone")
             .WithMobileNumber("mobileNumber")
             .WithDescription("description")
+            .WithInstagram("Instagram")
+            .WithEmail("email")
+            .WithLogoDetails()
             .Build();
 
         await _sut.Add(dto);
@@ -37,6 +40,12 @@ public class AboutUsServiceTests : BusinessUnitTest
         expected.Longitude.Should().Be(dto.Longitude);
         expected.Description.Should().Be(dto.Description);
         expected.Address.Should().Be(dto.Address);
+        expected.Instagram.Should().Be(dto.Instagram);
+        expected.Email.Should().Be(dto.Email);
+        expected.LogoImage!.URL.Should().Be(dto.LogoDetails!.URL);
+        expected.LogoImage!.Extension.Should().Be(dto.LogoDetails!.Extension);
+        expected.LogoImage!.ImageName.Should().Be(dto.LogoDetails!.ImageName);
+        expected.LogoImage!.UniqueName.Should().Be(dto.LogoDetails!.UniqueName);
     }
 
     [Fact]

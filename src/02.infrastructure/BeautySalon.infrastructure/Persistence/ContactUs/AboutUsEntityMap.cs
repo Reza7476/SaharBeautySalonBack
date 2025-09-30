@@ -22,7 +22,30 @@ public class AboutUsEntityMap : IEntityTypeConfiguration<AboutUs>
         _.Property(_ => _.Longitude).IsRequired(false);
         
         _.Property(_ => _.Description).IsRequired(false);
-        
+
         _.Property(_ => _.CreateDate).IsRequired();
+
+        _.Property(_ => _.Instagram).IsRequired(false);
+
+        _.Property(_ => _.Email).IsRequired(false);
+
+        _.OwnsOne(_ => _.LogoImage, image =>
+        {
+            image.Property(media => media.UniqueName)
+                 .HasColumnName("ImageUniqueName")
+                 .IsRequired();
+
+            image.Property(media => media.ImageName)
+                 .HasColumnName("ImageName")
+                 .IsRequired();
+
+            image.Property(media => media.Extension)
+                 .HasColumnName("Extension")
+                 .IsRequired();
+
+            image.Property(media => media.URL)
+                 .HasColumnName("URL")
+                 .IsRequired();
+        });
     }
 }

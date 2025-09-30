@@ -9,11 +9,11 @@ namespace BeautySalon.Application.Treatments;
 public class TreatmentCommandHandler : TreatmentHandler
 {
     private readonly ITreatmentService _service;
-    private readonly IImageService _mediaService;
+    private readonly IMediaService _mediaService;
 
     public TreatmentCommandHandler(
         ITreatmentService service,
-        IImageService mediaService)
+        IMediaService mediaService)
     {
         _service = service;
         _mediaService = mediaService;
