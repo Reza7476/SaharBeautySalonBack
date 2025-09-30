@@ -32,7 +32,7 @@ public class AboutUsEntityMap : IEntityTypeConfiguration<AboutUs>
         _.OwnsOne(_ => _.LogoImage, image =>
         {
             image.Property(media => media.UniqueName)
-                 .HasColumnName("ImageUniqueName")
+                 .HasColumnName("UniqueName")
                  .IsRequired();
 
             image.Property(media => media.ImageName)
