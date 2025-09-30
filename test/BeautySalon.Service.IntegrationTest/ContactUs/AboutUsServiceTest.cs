@@ -24,17 +24,26 @@ public class AboutUsServiceTest : BusinessIntegrationTest
             .WithDescription("description")
             .WithAddress("address")
             .WithMobileNumber("mobile")
+            .WithEmail("email")
+            .WithInstagram("Instagram")
+            .WithLogoDetila()
             .Build();
         Save(aboutUs);
 
         var expected = await _sut.Get();
 
-        expected.Id.Should().Be(aboutUs.Id);
+        expected!.Id.Should().Be(aboutUs.Id);
         expected.Address.Should().Be(aboutUs.Address);
         expected.Latitude.Should().Be(aboutUs.Latitude);
         expected.Telephone.Should().Be(aboutUs.Telephone);
         expected.Longitude.Should().Be(aboutUs.Longitude);
         expected.Description.Should().Be(aboutUs.Description);
         expected.MobileNumber.Should().Be(aboutUs.MobileNumber);
+        expected.Instagram.Should().Be(aboutUs.Instagram);
+        expected.Email.Should().Be(aboutUs.Email);
+        expected.LogoImage!.URL.Should().Be(aboutUs.LogoImage.URL);
+        expected.LogoImage.UniqueName.Should().Be(aboutUs.LogoImage.UniqueName);
+        expected.LogoImage.ImageName.Should().Be(aboutUs.LogoImage.ImageName);
+        expected.LogoImage.Extension.Should().Be(aboutUs.LogoImage.Extension);
     }
 }

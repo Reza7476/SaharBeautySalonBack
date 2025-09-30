@@ -1,4 +1,5 @@
-﻿using BeautySalon.Entities.ContactUs;
+﻿using BeautySalon.Entities.Commons;
+using BeautySalon.Entities.ContactUs;
 using BeautySalon.Services.ContactUs.Contracts;
 using BeautySalon.Services.ContactUs.Contracts.Dto;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,16 @@ public class EFAboutUsRepository : IAboutUsRepository
             Id = _.Id,
             Latitude = _.Latitude,
             Longitude = _.Longitude,
-            Telephone = _.Telephone
+            Telephone = _.Telephone,
+            Email = _.Email,
+            Instagram = _.Instagram,
+            LogoImage = _.LogoImage != null ? new MediaDocument()
+            {
+                Extension = _.LogoImage.Extension,
+                ImageName = _.LogoImage.ImageName,
+                UniqueName = _.LogoImage.UniqueName,
+                URL = _.LogoImage.URL,
+            } : null,
         }).FirstOrDefaultAsync();
     }
 }

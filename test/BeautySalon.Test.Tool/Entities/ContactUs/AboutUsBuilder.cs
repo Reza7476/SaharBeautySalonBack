@@ -1,4 +1,6 @@
-﻿using BeautySalon.Entities.ContactUs;
+﻿using BeautySalon.Entities.Commons;
+using BeautySalon.Entities.ContactUs;
+using System.Security.AccessControl;
 
 namespace BeautySalon.Test.Tool.Entities.ContactUs;
 public class AboutUsBuilder
@@ -14,10 +16,36 @@ public class AboutUsBuilder
             Latitude = 0.12,
             Longitude = 0.13,
             MobileNumber = "mobileNumber",
-            Telephone = "telephone"
+            Telephone = "telephone",
+            Email="email",
+            Instagram="Instagram"
         };
     }
 
+
+    public AboutUsBuilder WithEmail( string email)
+    {
+        _aboutUs.Email= email;
+        return this;
+    }
+
+    public AboutUsBuilder WithInstagram(string instgram)
+    {
+        _aboutUs.Instagram = instgram;
+        return this;
+    }
+
+    public AboutUsBuilder WithLogoDetila()
+    {
+        _aboutUs.LogoImage = new MediaDocument()
+        {
+            Extension="extension",
+            ImageName="imageName",
+            UniqueName="uniqueName",
+            URL="url"
+        };
+        return this;
+    }
 
     public AboutUsBuilder WithAddress(string address)
     {
