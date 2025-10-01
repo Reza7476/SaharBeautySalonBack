@@ -46,4 +46,28 @@ public class EFAboutUsRepository : IAboutUsRepository
             } : null,
         }).FirstOrDefaultAsync();
     }
+
+    public async Task<GetAboutUsDto?> GetById(long id)
+    {
+        return await _aboutUs.Where(_ => _.Id == id).Select(_ => new GetAboutUsDto()
+        {
+            Id = _.Id,
+            MobileNumber = _.MobileNumber,
+            Address = _.Address,
+            Description = _.Description,
+            Email = _.Email,
+            Instagram = _.Instagram,
+            Latitude = _.Latitude,
+            LogoImage = _.LogoImage != null ? new MediaDocument()
+            {
+                Extension = _.LogoImage.Extension,
+                ImageName = _.LogoImage.ImageName,
+                UniqueName = _.LogoImage.UniqueName,
+                URL = _.LogoImage.URL
+            } : null,
+            Longitude = _.Longitude,
+            Telephone = _.Telephone,
+
+        }).FirstOrDefaultAsync();
+    }
 }

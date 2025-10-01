@@ -23,7 +23,6 @@ public class ContactUsController : ControllerBase
     public async Task<long> Add([FromForm] AddAboutUsHandlerDto dto)
     {
         return await _handler.Add(dto);
-
     }
 
     [HttpGet]
@@ -36,6 +35,12 @@ public class ContactUsController : ControllerBase
     public async Task Update([FromRoute] long id, [FromBody] UpdateAboutUsDto dto )
     {
         await _service.Update(id ,dto);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<GetAboutUsDto?> GetById(long id)
+    {
+        return await _service.GetById(id);
     }
 
 }
