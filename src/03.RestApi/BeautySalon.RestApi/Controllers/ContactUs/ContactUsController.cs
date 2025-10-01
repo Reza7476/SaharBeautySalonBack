@@ -38,7 +38,7 @@ public class ContactUsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<GetAboutUsDto?> GetById(long id)
+    public async Task<GetAboutUsDto?> GetById([FromRoute]long id)
     {
         return await _service.GetById(id);
     }
