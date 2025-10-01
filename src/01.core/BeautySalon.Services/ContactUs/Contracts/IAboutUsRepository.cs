@@ -8,4 +8,5 @@ public interface IAboutUsRepository : IRepository
     Task Add(AboutUs contactUs);
     Task<AboutUs?> FindById(long id);
     Task<GetAboutUsDto?> Get();
+    Task<GetAboutUsDto?> GetById(long id);
 }

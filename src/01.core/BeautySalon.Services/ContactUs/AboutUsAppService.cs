@@ -52,6 +52,11 @@ public class AboutUsAppService : IAboutUsService
         return await _repository.Get();
     }
 
+    public async Task<GetAboutUsDto?> GetById(long id)
+    {
+        return await _repository.GetById(id);
+    }
+
     public async Task Update(long id, UpdateAboutUsDto dto)
     {
         var aboutUs = await _repository.FindById(id);

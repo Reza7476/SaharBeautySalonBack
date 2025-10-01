@@ -6,5 +6,6 @@ public interface IAboutUsService : IService
 {
     Task<long> Add(AddAboutUsDto dto);
     Task<GetAboutUsDto?> Get();
+    Task<GetAboutUsDto?> GetById(long id);
     Task Update(long id, UpdateAboutUsDto dto);
 }
