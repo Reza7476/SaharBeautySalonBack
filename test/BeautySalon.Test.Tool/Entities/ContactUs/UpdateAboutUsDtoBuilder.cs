@@ -15,7 +15,21 @@ public class UpdateAboutUsDtoBuilder
             Longitude=0.356,
             MobileNumber="mobileNumber",
             Telephone="telephone",
+            Email="email.com",
+            Instagram="instagram"
         };
+    }
+
+    public UpdateAboutUsDtoBuilder WithEmail(string email)
+    {
+        _dto.Email = email;
+        return this;
+    }
+
+    public UpdateAboutUsDtoBuilder WithInstagram(string instagram)
+    {
+        _dto.Instagram=instagram;
+        return this;
     }
 
 

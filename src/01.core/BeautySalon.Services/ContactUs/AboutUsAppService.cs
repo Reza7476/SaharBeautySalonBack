@@ -60,19 +60,25 @@ public class AboutUsAppService : IAboutUsService
     public async Task Update(long id, UpdateAboutUsDto dto)
     {
         var aboutUs = await _repository.FindById(id);
+        StopIfAboutUsNotFound(aboutUs);
 
-        if (aboutUs == null)
-        {
-            throw new AboutUsNotFoundException();
-        }
-
-        aboutUs.Telephone = dto.Telephone;
+        aboutUs!.Telephone = dto.Telephone;
         aboutUs.Longitude = dto.Longitude;
         aboutUs.Latitude = dto.Latitude;
         aboutUs.MobileNumber = dto.MobileNumber;
         aboutUs.Address = dto.Address;
         aboutUs.Description = dto.Description;
+        aboutUs.Email = dto.Email;
+        aboutUs.Instagram = dto.Instagram;
 
         await _unitOfWork.Complete();
+    }
+
+    private static void StopIfAboutUsNotFound(AboutUs? aboutUs)
+    {
+        if (aboutUs == null)
+        {
+            throw new AboutUsNotFoundException();
+        }
     }
 }

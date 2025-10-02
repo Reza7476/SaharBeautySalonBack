@@ -7,5 +7,6 @@ public class UpdateAboutUsDto
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public string? Description { get; set; }
-
+    public string? Email { get; set; }
+    public string? Instagram { get; set; }
 }
