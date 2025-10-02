@@ -67,6 +67,8 @@ public class AboutUsServiceTests : BusinessUnitTest
             .WithDescription("description")
             .WithMobileNumber("mobile")
             .WithTelephone("tel")
+            .WithEmail("email")
+            .WithInstagram("instagram")
             .Build();
 
         await _sut.Update(aboutUs.Id, dto);
@@ -78,6 +80,8 @@ public class AboutUsServiceTests : BusinessUnitTest
         expected.Longitude.Should().Be(dto.Longitude);
         expected.Latitude.Should().Be(dto.Latitude);
         expected.Description.Should().Be(dto.Description);
+        expected.Email.Should().Be(dto.Email);
+        expected.Instagram.Should().Be(dto.Instagram);
     }
 
     [Theory]
