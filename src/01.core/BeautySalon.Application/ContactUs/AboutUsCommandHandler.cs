@@ -4,6 +4,8 @@ using BeautySalon.Common.Dtos;
 using BeautySalon.Common.Interfaces;
 using BeautySalon.Services.ContactUs.Contracts;
 using BeautySalon.Services.ContactUs.Contracts.Dto;
+using BeautySalon.Services.ContactUs.Exceptions;
+using System.Data.Common;
 
 namespace BeautySalon.Application.ContactUs;
 public class AboutUsCommandHandler : ContactUsHandler
@@ -50,5 +52,34 @@ public class AboutUsCommandHandler : ContactUsHandler
         });
 
         return aboutUs;
+    }
+
+    public async Task EditLogo(long id, EditLogoDto dto)
+    {
+
+        var logoImage = await _service.GetById(id);
+        if (logoImage == null)
+        {
+            throw new AboutUsNotFoundException();
+
+        }
+        if (logoImage.LogoImage != null)
+        {
+            await _mediaService.DeleteMediaByURL(logoImage.LogoImage.URL);
+            MediaDto media = await _mediaService.SaveMedia(new AddMediaDto()
+            {
+                Media = dto.Media,
+
+            });
+
+            await _service.UpdateLogo(id, new ImageDetailsDto()
+            {
+                Extension = media.Extension,
+                ImageName = media.ImageName,
+                UniqueName = media.UniqueName,
+                URL = media.URL
+            });
+        }
+
     }
 }

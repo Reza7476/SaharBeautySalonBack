@@ -35,7 +35,7 @@ public class AboutUsBuilder
         return this;
     }
 
-    public AboutUsBuilder WithLogoDetila()
+    public AboutUsBuilder WithLogoDetils()
     {
         _aboutUs.LogoImage = new MediaDocument()
         {

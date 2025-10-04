@@ -43,4 +43,10 @@ public class ContactUsController : ControllerBase
         return await _service.GetById(id);
     }
 
+    [HttpPatch("{id}/logo")]
+    public async Task EditLogo([FromRoute] long id, EditLogoDto dto)
+    {
+        await _handler.EditLogo(id, dto);
+    }
+
 }

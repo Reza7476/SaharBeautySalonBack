@@ -25,7 +25,7 @@ public class AboutUsServiceTest : BusinessIntegrationTest
             .WithMobileNumber("mobile")
             .WithEmail("email")
             .WithInstagram("Instagram")
-            .WithLogoDetila()
+            .WithLogoDetils()
             .Build();
         Save(aboutUs);
 
@@ -54,7 +54,7 @@ public class AboutUsServiceTest : BusinessIntegrationTest
             .WithLatitude(29.12122)
             .WithLongitude(52.3698)
             .WithEmail("email")
-            .WithLogoDetila()
+            .WithLogoDetils()
             .WithDescription("description")
             .WithInstagram("instagram")
             .WithMobileNumber("9174367476")
