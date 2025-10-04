@@ -66,20 +66,22 @@ public class AboutUsCommandHandler : ContactUsHandler
         if (logoImage.LogoImage != null)
         {
             await _mediaService.DeleteMediaByURL(logoImage.LogoImage.URL);
-            MediaDto media = await _mediaService.SaveMedia(new AddMediaDto()
-            {
-                Media = dto.Media,
-
-            });
-
-            await _service.UpdateLogo(id, new ImageDetailsDto()
-            {
-                Extension = media.Extension,
-                ImageName = media.ImageName,
-                UniqueName = media.UniqueName,
-                URL = media.URL
-            });
         }
+
+        MediaDto media = await _mediaService.SaveMedia(new AddMediaDto()
+        {
+            Media = dto.Media,
+
+        });
+
+        await _service.UpdateLogo(id, new ImageDetailsDto()
+        {
+            Extension = media.Extension,
+            ImageName = media.ImageName,
+            UniqueName = media.UniqueName,
+            URL = media.URL
+        });
+
 
     }
 }
