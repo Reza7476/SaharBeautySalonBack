@@ -101,10 +101,11 @@ public class AboutUsAppService : IAboutUsService
         }
         else
         {
-            aboutUs!.LogoImage.UniqueName = dto.UniqueName;
-            aboutUs!.LogoImage.ImageName = dto.ImageName;
-            aboutUs!.LogoImage.URL = dto.URL;
+            aboutUs.LogoImage.UniqueName = dto.UniqueName;
+            aboutUs.LogoImage.ImageName = dto.ImageName;
+            aboutUs.LogoImage.URL = dto.URL;
             aboutUs.LogoImage.Extension = dto.Extension;
+
         }
         await _unitOfWork.Complete();
     }
