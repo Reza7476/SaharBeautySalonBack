@@ -86,14 +86,26 @@ public class AboutUsAppService : IAboutUsService
     public async Task UpdateLogo(long id, ImageDetailsDto dto)
     {
         var aboutUs = await _repository.FindById(id);
-        
+
         StopIfAboutUsNotFound(aboutUs);
 
-        aboutUs!.LogoImage!.UniqueName = dto.UniqueName;
-        aboutUs!.LogoImage.ImageName = dto.ImageName;
-        aboutUs!.LogoImage.URL = dto.URL;
-        aboutUs.LogoImage.Extension = dto.Extension;
-        
+        if (aboutUs!.LogoImage == null)
+        {
+            aboutUs.LogoImage = new MediaDocument()
+            {
+                Extension = dto.Extension,
+                ImageName = dto.ImageName,
+                UniqueName = dto.UniqueName,
+                URL = dto.URL
+            };
+        }
+        else
+        {
+            aboutUs!.LogoImage.UniqueName = dto.UniqueName;
+            aboutUs!.LogoImage.ImageName = dto.ImageName;
+            aboutUs!.LogoImage.URL = dto.URL;
+            aboutUs.LogoImage.Extension = dto.Extension;
+        }
         await _unitOfWork.Complete();
     }
 }
