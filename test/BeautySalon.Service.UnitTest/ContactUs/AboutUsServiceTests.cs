@@ -1,9 +1,12 @@
 ﻿using BeautySalon.Entities.ContactUs;
 using BeautySalon.Services.ContactUs.Contracts;
 using BeautySalon.Services.ContactUs.Exceptions;
+using BeautySalon.Test.Tool.Common;
 using BeautySalon.Test.Tool.Entities.ContactUs;
 using BeautySalon.Test.Tool.Infrastructure.UnitTests;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Xunit;
 
 namespace BeautySalon.Service.UnitTest.ContactUs;
@@ -93,5 +96,37 @@ public class AboutUsServiceTests : BusinessUnitTest
         Func<Task> expected = async () => await _sut.Update(id, dto);
 
         await expected.Should().ThrowExactlyAsync<AboutUsNotFoundException>();
+    }
+
+
+    [Fact]
+    public async Task UpdateLogo_should_edit_logo_properly()
+    {
+        var aboutUs = new AboutUsBuilder()
+            .WithLogoDetils()
+            .Build();
+        Save(aboutUs);
+        var dto = new AddImageDetailsDtoBuilder()
+            .Build();
+
+        await _sut.UpdateLogo(aboutUs.Id, dto);
+
+        var expected = ReadContext.Set<AboutUs>().First();
+        expected.LogoImage!.URL.Should().Be(dto.URL);
+        expected.LogoImage.ImageName.Should().Be(dto.ImageName);
+        expected.LogoImage.UniqueName.Should().Be(dto.UniqueName);
+        expected.LogoImage.Extension.Should().Be(dto.Extension);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    public async Task UpdateLogo_should_throw_exception_when_about_us_not_found(long id)
+    {
+        var dto = new AddImageDetailsDtoBuilder()
+            .Build();
+        
+        Func<Task> expected = async () => await _sut.UpdateLogo(id, dto);
+    
+        await expected.Should().ThrowExactlyAsync<AboutUsNotFoundException>();   
     }
 }
