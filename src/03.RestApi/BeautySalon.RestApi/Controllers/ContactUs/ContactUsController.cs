@@ -44,7 +44,7 @@ public class ContactUsController : ControllerBase
     }
 
     [HttpPatch("{id}/logo")]
-    public async Task EditLogo([FromRoute] long id, EditLogoDto dto)
+    public async Task EditLogo([FromRoute] long id, [FromForm]EditLogoDto dto)
     {
         await _handler.EditLogo(id, dto);
     }
