@@ -61,9 +61,8 @@ public class AboutUsCommandHandler : ContactUsHandler
         if (logoImage == null)
         {
             throw new AboutUsNotFoundException();
-
         }
-        if (logoImage.LogoImage != null)
+        if (logoImage.LogoImage != null && logoImage.LogoImage.URL != "")
         {
             await _mediaService.DeleteMediaByURL(logoImage.LogoImage.URL);
         }
@@ -81,7 +80,5 @@ public class AboutUsCommandHandler : ContactUsHandler
             UniqueName = media.UniqueName,
             URL = media.URL
         });
-
-
     }
 }
