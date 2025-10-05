@@ -12,6 +12,7 @@ public interface ITreatmentRepository : IRepository
     Task<TreatmentImage?> FindImageByImageId(long imageId);
     Task<IPageResult<GetAllTreatmentsDto>> GetAll(IPagination? pagination);
     Task<GetTreatmentDetailsDto?> GetDetails(long id);
+    Task<List<GetTreatmentForLandingDto>> GetForLanding();
     Task <List<TreatmentImage>>GetTreatmentImages(long id);
     Task RemoveImage(TreatmentImage treatmentImage);
 }
