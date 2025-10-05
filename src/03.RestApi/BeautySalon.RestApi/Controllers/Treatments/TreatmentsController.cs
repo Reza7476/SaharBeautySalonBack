@@ -61,4 +61,11 @@ public class TreatmentsController : ControllerBase
     {
         await _service.Update(dto,id);
     }
+
+
+    [HttpGet("for-landing")]
+    public async Task<List<GetTreatmentForLandingDto>> GetForLanding()
+    {
+        return await _service.GetForLanding();
+    }
 }

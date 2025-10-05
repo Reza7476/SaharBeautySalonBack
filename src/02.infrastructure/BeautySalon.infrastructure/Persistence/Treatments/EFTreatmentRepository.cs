@@ -86,6 +86,26 @@ public class EFTreatmentRepository : ITreatmentRepository
             }).FirstOrDefaultAsync();
     }
 
+    public async Task<List<GetTreatmentForLandingDto>> GetForLanding()
+    {
+        return await _treatments
+            .Include(_ => _.Images)
+            .Take(10)
+            .Select(_ => new GetTreatmentForLandingDto()
+            {
+                Description = _.Description,
+                Id = _.Id,
+                Title = _.Title,
+                Media = _.Images != null ? _.Images.Select(media => new MediaDto()
+                {
+                    Extension = media.Extension,
+                    ImageName = media.ImageName,
+                    UniqueName = media.ImageUniqueName,
+                    URL = media.URL
+                }).FirstOrDefault() : null
+            }).ToListAsync();
+    }
+
     public async Task<List<TreatmentImage>> GetTreatmentImages(long id)
     {
         return await _treatmentImages.Where(_ => _.TreatmentId == id).ToListAsync();

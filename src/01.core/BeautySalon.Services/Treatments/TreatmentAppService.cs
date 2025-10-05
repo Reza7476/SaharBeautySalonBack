@@ -113,4 +113,9 @@ public class TreatmentAppService : ITreatmentService
             throw new TreatmentNotFoundException();
         }
     }
+
+    public async Task<List<GetTreatmentForLandingDto>> GetForLanding()
+    {
+        return await _repository.GetForLanding();
+    }
 }
