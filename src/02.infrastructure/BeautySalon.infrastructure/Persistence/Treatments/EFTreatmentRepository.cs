@@ -101,7 +101,8 @@ public class EFTreatmentRepository : ITreatmentRepository
                     Extension = media.Extension,
                     ImageName = media.ImageName,
                     UniqueName = media.ImageUniqueName,
-                    URL = media.URL
+                    URL = media.URL,
+                    Id=media.Id
                 }).FirstOrDefault() : null
             }).ToListAsync();
     }
