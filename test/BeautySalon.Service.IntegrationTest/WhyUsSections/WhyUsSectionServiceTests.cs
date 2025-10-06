@@ -76,4 +76,29 @@ public class WhyUsSectionServiceTests : BusinessIntegrationTest
         expected.Image.URL.Should().Be(section.Image.URL);
         expected.Image.ImageName.Should().Be(section.Image.ImageName);
     }
+
+
+    [Fact]
+    public async Task GetForLanding_should_return_why_us_properly()
+    {
+        var whyUs = new WhyUsSectionBuilder()
+            .WithTitle("title")
+            .WithDescription("description")
+            .WithMedia()
+            .WithQuestion()
+            .Build();
+        Save(whyUs);
+
+        var expected = await _sut.GetForLanding();
+
+        expected!.Description.Should().Be(whyUs.Description);
+        expected.Title.Should().Be(whyUs.Title);
+        expected.Image.Extension.Should().Be(whyUs.Image.Extension);
+        expected.Image.UniqueName.Should().Be(whyUs.Image.UniqueName);
+        expected.Image.ImageName.Should().Be(whyUs.Image.ImageName);
+        expected.Image.URL.Should().Be(whyUs.Image.URL);
+        expected.Questions.First().Question.Should().Be(whyUs.Why_Us_Questions.First().Question);
+        expected.Questions.First().Answer.Should().Be(whyUs.Why_Us_Questions.First().Answer);
+        expected.Questions.First().Id.Should().Be(whyUs.Why_Us_Questions.First().Id);
+    }
 }

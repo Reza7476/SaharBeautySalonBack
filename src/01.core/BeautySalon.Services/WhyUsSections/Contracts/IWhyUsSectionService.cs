@@ -16,4 +16,5 @@ public interface IWhyUsSectionService : IService
     Task DeleteQuestion(long questionId);
     Task<GetWhyUsSectionForEditDto?> GetWhyUsSectionByIdForEdit(long id);
     Task UpdateImage(long id, ImageDetailsDto imageDetailsDto);
+    Task<GetWhyUsForLandingDto?> GetForLanding();
 }

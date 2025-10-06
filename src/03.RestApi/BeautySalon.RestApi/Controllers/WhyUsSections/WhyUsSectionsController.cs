@@ -85,4 +85,9 @@ public class WhyUsSectionsController : ControllerBase
         await _handler.UpdateImage(id, dto);
     }
 
+    [HttpGet("all-for-landing")]
+    public async Task<GetWhyUsForLandingDto?> GetForLanding()
+    {
+        return await _service.GetForLanding();
+    }
 }
