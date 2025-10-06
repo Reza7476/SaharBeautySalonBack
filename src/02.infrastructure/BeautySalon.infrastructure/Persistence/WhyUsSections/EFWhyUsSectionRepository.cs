@@ -82,15 +82,40 @@ public class EFWhyUsSectionRepository : IWhyUsSectionRepository
     {
         return await _sections.Where(_ => _.Id == id).Select(_ => new GetWhyUsSectionForEditDto()
         {
-            Description=_.Description,
-            Image=new ImageDetailsDto()
+            Description = _.Description,
+            Image = new ImageDetailsDto()
             {
                 Extension = _.Image.Extension,
                 ImageName = _.Image.ImageName,
                 UniqueName = _.Image.UniqueName,
                 URL = _.Image.URL
             },
-            Title=_.Title,
+            Title = _.Title,
         }).FirstOrDefaultAsync();
+    }
+
+    public async Task<GetWhyUsForLandingDto?> GetForLanding()
+    {
+        var a = await _sections
+            .Include(_ => _.Why_Us_Questions)
+            .Select(whyUs => new GetWhyUsForLandingDto()
+            {
+                Description = whyUs.Description,
+                Title = whyUs.Title,
+                Image = new ImageDetailsDto()
+                {
+                    Extension = whyUs.Image.Extension,
+                    ImageName = whyUs.Image.ImageName,
+                    UniqueName = whyUs.Image.UniqueName,
+                    URL = whyUs.Image.URL
+                },
+                Questions = whyUs.Why_Us_Questions.Select(question => new GetWhyUsQuestionsDto()
+                {
+                    Id = question.Id,
+                    Answer = question.Answer,
+                    Question = question.Question
+                }).ToList()
+            }).FirstOrDefaultAsync();
+        return a;
     }
 }

@@ -144,4 +144,10 @@ public class WhyUsSectionAppService : IWhyUsSectionService
         whyUs.Image.Extension = dto.Extension;
         await _unitOfWork.Complete();
     }
+
+    public async Task<GetWhyUsForLandingDto?> GetForLanding()
+    {
+
+        return await _repository.GetForLanding();
+    }
 }

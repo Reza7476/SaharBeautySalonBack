@@ -13,4 +13,5 @@ public interface IWhyUsSectionRepository : IRepository
     Task AddQuestion(Why_Us_Question question);
     Task DeleteQuestion(Why_Us_Question question);
     Task<GetWhyUsSectionForEditDto?> GetByIdForEdit(long id);
+    Task<GetWhyUsForLandingDto?> GetForLanding();
 }
