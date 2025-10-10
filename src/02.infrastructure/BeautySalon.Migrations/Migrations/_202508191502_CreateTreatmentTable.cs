@@ -10,7 +10,7 @@ public class _202508191502_CreateTreatmentTable : Migration
     {
         Create.Table("Treatments")
             .WithColumn("Id").AsInt64().PrimaryKey().NotNullable().Identity()
-            .WithColumn("Description").AsString().NotNullable()
+            .WithColumn("Description").AsString(1000).NotNullable()
             .WithColumn("Title").AsString().NotNullable()
             .WithColumn("CreateDate").AsDateTime2();
         Create.Table("TreatmentImages")
